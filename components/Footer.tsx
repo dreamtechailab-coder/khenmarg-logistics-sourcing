@@ -11,9 +11,11 @@ export default function Footer() {
       <div className="container-x grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-12">
         <div className="lg:col-span-4">
           <div className="inline-flex items-center gap-4 rounded-xl bg-white p-3">
-            <Image src="/logos/khenmarg-logo.png" alt="Khenmarg" width={150} height={55} className="h-11 w-auto" />
+            <Link href="/" aria-label="Khenmarg Logistics home">
+              <Image src="/images/khenmarg-logo.png" alt="Khenmarg Logistics - We pave the way for your cargo..." width={719} height={263} className="logo-img h-16 w-auto object-contain" />
+            </Link>
             <span className="h-10 w-px bg-gray-200" />
-            <Image src="/logos/shashva-logo.png" alt="Shashva" width={48} height={48} className="h-11 w-11" />
+            <Image src="/logos/shashva-logo.png" alt="Shashva" width={48} height={48} className="h-14 w-14" />
           </div>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-gray-400">
             International freight forwarding, transportation and customs broking from Chennai — and premium Indian

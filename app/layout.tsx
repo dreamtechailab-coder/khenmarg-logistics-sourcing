@@ -5,6 +5,7 @@ import "@fontsource/inter/600.css";
 import "@fontsource/poppins/500.css";
 import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
+import "@fontsource/poppins/800.css";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -21,9 +22,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Khenmarg Logistics Sourcing Pvt. Ltd.",
-    images: ["/images/sea.jpg"],
+    images: [{ url: "/images/khenmarg-og.png", width: 1200, height: 630, alt: "Khenmarg Logistics - We pave the way for your cargo..." }],
   },
-  twitter: { card: "summary_large_image" },
+  twitter: { card: "summary_large_image", images: ["/images/khenmarg-og.png"] },
+  icons: {
+    icon: [{ url: "/favicon.ico" }, { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" }],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+  },
 };
 
 const orgLd = {
@@ -34,7 +39,7 @@ const orgLd = {
       "@id": `${site.url}/#org`,
       name: site.name,
       url: site.url,
-      logo: `${site.url}/logos/khenmarg-logo.png`,
+      logo: `${site.url}/images/khenmarg-logo.png`,
       slogan: "We pave the way for your cargo",
       telephone: "+91-9884714774",
       email: "naresh@khenmarg.com",

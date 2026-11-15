@@ -31,26 +31,33 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 bg-white/95 backdrop-blur transition-all ${
-        scrolled ? "shadow-md" : "border-b border-gray-100"
+      className={`sticky top-0 z-50 bg-white transition-all ${
+        `border-b border-gray-100 ${scrolled ? "shadow-md" : "shadow-sm"}`
       }`}
     >
       {/* Top bar */}
-      <div className={`hidden md:block text-xs text-white ${isShashva ? "bg-sh-700" : "bg-km-900"}`}>
-        <div className="container-x flex h-9 items-center justify-between">
+      <div
+        className={`hidden md:block text-xs text-white ${isShashva ? "bg-sh-700" : ""}`}
+        style={isShashva ? undefined : { background: "linear-gradient(90deg, #C8281E 0%, #E8541A 50%, #F58C22 100%)" }}
+      >
+        <div className="mx-auto flex h-9 w-full max-w-[1440px] items-center justify-between px-4 lg:px-6">
           <span>Freight Forwarding &nbsp;|&nbsp; Transportation &nbsp;|&nbsp; Customs Broker</span>
           <div className="flex items-center gap-5">
-            <a href={site.phones[0].href} className="flex items-center gap-1.5 hover:underline">
+            <a href={site.phones[0].href} className="flex items-center gap-1.5 text-white transition-opacity hover:opacity-90">
               <Phone size={12} /> {site.phones[0].label}
             </a>
-            <a href={site.emails[0].href} className="hover:underline">
+            <a href={site.emails[0].href} className="text-white transition-opacity hover:opacity-90">
               {site.emails[0].label}
             </a>
           </div>
         </div>
       </div>
 
-      <div className={`container-x flex items-center justify-between transition-all ${scrolled ? "h-16" : "h-20"}`}>
+      <div
+        className={`mx-auto flex w-full max-w-[1440px] items-center justify-between px-4 lg:grid lg:grid-cols-[auto_1fr_auto] lg:px-6 transition-all ${
+          "h-16"
+        }`}
+      >
         <Link href={isShashva ? "/shashva/" : "/"} className="flex items-center gap-3" aria-label="Home">
           {isShashva ? (
             <>
@@ -62,17 +69,17 @@ export default function Header() {
             </>
           ) : (
             <Image
-              src="/logos/khenmarg-logo.png"
-              alt="Khenmarg Logistics — We pave the way for your cargo"
-              width={180}
-              height={66}
-              className={`w-auto transition-all ${scrolled ? "h-11" : "h-14"}`}
+              src="/images/khenmarg-logo.png"
+              alt="Khenmarg Logistics - We pave the way for your cargo..."
+              width={719}
+              height={263}
+              className="logo-img h-[42px] w-auto object-contain md:h-[52px]"
               priority
             />
           )}
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-1" aria-label="Main">
+        <nav className="hidden lg:flex items-center justify-center gap-1" aria-label="Main">
           {nav.map((n) => (
             <Link
               key={n.href}
@@ -117,18 +124,18 @@ export default function Header() {
               </div>
             </div>
           </div>
-          <Link
-            href="/contact/"
-            className={`rounded-full px-3.5 py-2 text-sm font-medium ${
-              isActive("/contact") ? "text-km-600" : "text-gray-700"
-            }`}
-          >
-            Contact Us
-          </Link>
-          <Link href="/contact/#enquiry" className={`ml-3 ${isShashva ? "btn-sh" : "btn-km"} !py-2.5`}>
-            Get a Quote
-          </Link>
         </nav>
+
+        <Link
+          href="/contact/"
+          className="hidden lg:inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:brightness-110"
+          style={{
+            background: "linear-gradient(135deg, #C8281E 0%, #E8541A 50%, #F58C22 100%)",
+            boxShadow: "0 4px 14px rgba(232, 84, 26, 0.35)",
+          }}
+        >
+          Contact Us
+        </Link>
 
         <button className="lg:hidden p-2" onClick={() => setOpen(true)} aria-label="Open menu">
           <Menu />
@@ -150,7 +157,7 @@ export default function Header() {
           }`}
         >
           <div className="mb-6 flex items-center justify-between">
-            <Image src="/logos/khenmarg-logo.png" alt="Khenmarg" width={140} height={51} className="h-10 w-auto" />
+            <Image src="/images/khenmarg-logo.png" alt="Khenmarg Logistics - We pave the way for your cargo..." width={719} height={263} className="logo-img h-[42px] w-auto object-contain" />
             <button onClick={() => setOpen(false)} aria-label="Close menu" className="p-2">
               <X />
             </button>
@@ -166,11 +173,15 @@ export default function Header() {
               {n.label}
             </Link>
           ))}
-          <Link href="/contact/" className="mt-4 block border-b border-gray-100 py-3 font-medium">
+          <Link
+            href="/contact/"
+            className="mt-6 flex w-full items-center justify-center rounded-full px-6 py-3 font-semibold text-white"
+            style={{
+              background: "linear-gradient(135deg, #C8281E 0%, #E8541A 50%, #F58C22 100%)",
+              boxShadow: "0 4px 14px rgba(232, 84, 26, 0.35)",
+            }}
+          >
             Contact Us
-          </Link>
-          <Link href="/contact/#enquiry" className="btn-km mt-6 w-full">
-            Get a Quote
           </Link>
         </div>
       </div>

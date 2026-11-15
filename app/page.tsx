@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Leaf, Truck } from "lucide-react";
-import HeroSlider from "@/components/HeroSlider";
+import HeroSection from "@/components/HeroSection";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icon";
 import ProductArt from "@/components/ProductArt";
@@ -12,7 +12,7 @@ import { products } from "@/content/products";
 export default function Home() {
   return (
     <>
-      <HeroSlider />
+      <HeroSection />
 
       {/* Intro + stats */}
       <section className="relative z-10 -mt-14">
