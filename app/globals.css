@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", ui-sans-serif, system-ui, sans-serif;
+
+  /* Khenmarg */
+  --color-km-50: #fff4f0;
+  --color-km-100: #ffe4da;
+  --color-km-500: #f26b1d;
+  --color-km-600: #d9452b;
+  --color-km-700: #b33520;
+  --color-km-900: #3a1810;
+
+  /* Shashva */
+  --color-sh-50: #f7f3e8;
+  --color-sh-100: #ece5cf;
+  --color-sh-500: #4b9a5f;
+  --color-sh-600: #2e7d4f;
+  --color-sh-700: #22603c;
+  --color-sh-900: #143823;
+
+  --color-ink: #1f2937;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-sans text-ink bg-white antialiased;
+}
+
+h1, h2, h3, h4 {
+  @apply font-display;
+}
+
+@utility container-x {
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2;
+}
+@utility btn-km {
+  @apply btn bg-km-600 text-white hover:bg-km-700 shadow-lg shadow-km-600/25;
+}
+@utility btn-sh {
+  @apply btn bg-sh-600 text-white hover:bg-sh-700 shadow-lg shadow-sh-600/25;
+}
+@utility btn-ghost {
+  @apply btn border border-white/40 text-white hover:bg-white/10;
+}
+@utility btn-outline-km {
+  @apply btn border border-km-600 text-km-600 hover:bg-km-600 hover:text-white;
+}
+@utility btn-outline-sh {
+  @apply btn border border-sh-600 text-sh-600 hover:bg-sh-600 hover:text-white;
+}
+
+@utility card {
+  @apply rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl;
+}
+
+@utility eyebrow {
+  @apply text-xs font-semibold uppercase tracking-[0.2em];
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* Hero slider */
+@keyframes kenburns {
+  from { transform: scale(1.05); }
+  to { transform: scale(1.15); }
+}
+.kenburns { animation: kenburns 12s ease-out forwards; }
+
+@keyframes dash {
+  to { stroke-dashoffset: -40; }
+}
+.route-line {
+  stroke-dasharray: 6 6;
+  animation: dash 2s linear infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { r: 4; opacity: 1; }
+  50% { r: 8; opacity: 0.4; }
+}
+
+.marquee {
+  animation: marquee 40s linear infinite;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
