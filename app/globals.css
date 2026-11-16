@@ -125,3 +125,10 @@ h1, h2, h3, h4 {
 .logo-img {
   image-rendering: -webkit-optimize-contrast;
 }
+
+/* Intro carousel: autoplay is the progress bar's own animation (see components/IntroCarousel.tsx) */
+@keyframes intro-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.intro-progress { animation-name: intro-progress; animation-timing-function: linear; animation-fill-mode: both; }
+.intro-progress-idle,
+[data-paused="true"] .intro-progress { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) { .intro-progress { animation: none; } }
