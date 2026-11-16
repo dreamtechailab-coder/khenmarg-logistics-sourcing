@@ -6,6 +6,27 @@ import { useEffect, useState } from "react";
 import { ChevronDown, Menu, X, Phone } from "lucide-react";
 import { nav, shashvaNav, site } from "@/content/site";
 
+function KhenmargLogo() {
+  return (
+    <>
+      <Image src="/logos/khenmarg-mark.png" alt="" width={130} height={135} className="logo-img h-[38px] w-auto object-contain md:h-[42px]" priority />
+      <div className="flex flex-col justify-center gap-[3px]">
+        <Image
+          src="/logos/khenmarg-title.png"
+          alt="Khen Marg"
+          width={719}
+          height={64}
+          className="logo-img h-[16px] w-auto object-contain object-left md:h-[19px]"
+          priority
+        />
+        <span className="whitespace-nowrap font-sans text-[11px] font-medium leading-none tracking-[0.03em] text-slate-700 md:text-xs">
+          We pave the way for your cargo…
+        </span>
+      </div>
+    </>
+  );
+}
+
 export default function Header() {
   const pathname = usePathname() || "/";
   const isShashva = pathname.startsWith("/shashva");
@@ -54,11 +75,11 @@ export default function Header() {
       </div>
 
       <div
-        className={`mx-auto flex w-full max-w-[1440px] items-center justify-between px-4 lg:grid lg:grid-cols-[auto_1fr_auto] lg:px-6 transition-all ${
+        className={`flex w-full items-center justify-between pl-2 pr-4 lg:grid lg:grid-cols-[auto_1fr_auto] lg:pl-3 lg:pr-6 transition-all ${
           "h-16"
         }`}
       >
-        <Link href={isShashva ? "/shashva/" : "/"} className="flex items-center gap-3" aria-label="Home">
+        <Link href={isShashva ? "/shashva/" : "/"} className="flex items-center gap-2.5" aria-label="Home">
           {isShashva ? (
             <>
               <Image src="/logos/shashva-logo.png" alt="Shashva" width={56} height={56} className="h-12 w-12" />
@@ -68,18 +89,11 @@ export default function Header() {
               </div>
             </>
           ) : (
-            <Image
-              src="/images/khenmarg-logo.png"
-              alt="Khenmarg Logistics - We pave the way for your cargo..."
-              width={719}
-              height={263}
-              className="logo-img h-[42px] w-auto object-contain md:h-[52px]"
-              priority
-            />
+            <KhenmargLogo />
           )}
         </Link>
 
-        <nav className="hidden lg:flex items-center justify-center gap-1" aria-label="Main">
+        <nav className="hidden lg:flex items-center justify-end gap-1 pr-3" aria-label="Main">
           {nav.map((n) => (
             <Link
               key={n.href}
@@ -93,49 +107,51 @@ export default function Header() {
               {n.label}
             </Link>
           ))}
-          <div className="relative" onMouseEnter={() => setDd(true)} onMouseLeave={() => setDd(false)}>
-            <button
-              className={`flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-semibold ${
-                isShashva ? "bg-sh-50 text-sh-700" : "text-sh-600"
-              }`}
-              aria-expanded={dd}
-              onClick={() => setDd((v) => !v)}
-            >
-              Shashva <ChevronDown size={14} className={`transition-transform ${dd ? "rotate-180" : ""}`} />
-            </button>
-            <div
-              className={`absolute right-0 top-full w-64 pt-2 transition-all ${
-                dd ? "visible opacity-100 translate-y-0" : "invisible opacity-0 -translate-y-2"
-              }`}
-            >
-              <div className="rounded-xl border border-sh-100 bg-white p-2 shadow-xl">
-                <div className="eyebrow px-3 pb-1 pt-2 text-sh-600">Our Food Export Brand</div>
-                {shashvaNav.map((n) => (
-                  <Link
-                    key={n.href}
-                    href={n.href}
-                    className={`block rounded-lg px-3 py-2.5 text-sm hover:bg-sh-50 ${
-                      pathname === n.href ? "bg-sh-50 font-semibold text-sh-700" : "text-gray-700"
-                    }`}
-                  >
-                    {n.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </div>
         </nav>
 
-        <Link
-          href="/contact/"
-          className="hidden lg:inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:brightness-110"
-          style={{
-            background: "linear-gradient(135deg, #C8281E 0%, #E8541A 50%, #F58C22 100%)",
-            boxShadow: "0 4px 14px rgba(232, 84, 26, 0.35)",
-          }}
-        >
-          Contact Us
-        </Link>
+        <div className="hidden lg:flex items-center gap-3">
+            <div className="relative" onMouseEnter={() => setDd(true)} onMouseLeave={() => setDd(false)}>
+              <button
+                className={`flex items-center gap-1 rounded-full px-3.5 py-2 text-sm font-semibold ${
+                  isShashva ? "bg-sh-50 text-sh-700" : "text-sh-600"
+                }`}
+                aria-expanded={dd}
+                onClick={() => setDd((v) => !v)}
+              >
+                Shashva <ChevronDown size={14} className={`transition-transform ${dd ? "rotate-180" : ""}`} />
+              </button>
+              <div
+                className={`absolute right-0 top-full w-64 pt-2 transition-all ${
+                  dd ? "visible opacity-100 translate-y-0" : "invisible opacity-0 -translate-y-2"
+                }`}
+              >
+                <div className="rounded-xl border border-sh-100 bg-white p-2 shadow-xl">
+                  <div className="eyebrow px-3 pb-1 pt-2 text-sh-600">Our Food Export Brand</div>
+                  {shashvaNav.map((n) => (
+                    <Link
+                      key={n.href}
+                      href={n.href}
+                      className={`block rounded-lg px-3 py-2.5 text-sm hover:bg-sh-50 ${
+                        pathname === n.href ? "bg-sh-50 font-semibold text-sh-700" : "text-gray-700"
+                      }`}
+                    >
+                      {n.label}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          <Link
+            href="/contact/"
+            className="inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:brightness-110"
+            style={{
+              background: "linear-gradient(135deg, #C8281E 0%, #E8541A 50%, #F58C22 100%)",
+              boxShadow: "0 4px 14px rgba(232, 84, 26, 0.35)",
+            }}
+          >
+            Contact Us
+          </Link>
+        </div>
 
         <button className="lg:hidden p-2" onClick={() => setOpen(true)} aria-label="Open menu">
           <Menu />
@@ -157,7 +173,9 @@ export default function Header() {
           }`}
         >
           <div className="mb-6 flex items-center justify-between">
-            <Image src="/images/khenmarg-logo.png" alt="Khenmarg Logistics - We pave the way for your cargo..." width={719} height={263} className="logo-img h-[42px] w-auto object-contain" />
+            <div className="flex items-center gap-2.5">
+              <KhenmargLogo />
+            </div>
             <button onClick={() => setOpen(false)} aria-label="Close menu" className="p-2">
               <X />
             </button>

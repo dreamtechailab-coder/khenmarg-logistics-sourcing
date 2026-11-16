@@ -33,7 +33,8 @@ export default function LogisticsHeroAnimation({ className = "" }: { className?:
     <div
       ref={ref}
       aria-hidden="true"
-      className={`absolute inset-0 overflow-hidden bg-[#1E293B] transition-opacity duration-1000 ${ready ? "opacity-100" : "opacity-0"} ${className}`}
+      style={{ transform: "translateZ(0)" }}
+      className={`absolute inset-0 overflow-hidden transition-opacity duration-500 ${ready ? "opacity-100" : "opacity-0"} ${className}`}
     />
   );
 }
