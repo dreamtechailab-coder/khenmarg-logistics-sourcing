@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, MessageCircle } from "lucide-react";
-import ProductArt from "@/components/ProductArt";
+import ProductMedia from "@/components/ProductMedia";
 import Reveal from "@/components/Reveal";
 import { CtaBand, Check } from "@/components/ui";
 import { products } from "@/content/products";
@@ -49,7 +49,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
         <div className="container-x grid items-center gap-12 pb-20 pt-6 lg:grid-cols-2">
           <Reveal className="overflow-hidden rounded-3xl bg-white shadow-xl">
-            <ProductArt kind={p.art} className="aspect-[5/4] w-full" />
+            <ProductMedia product={p} zoom={false} sizes="(min-width: 1024px) 50vw, 100vw" priority />
           </Reveal>
           <Reveal delay={120}>
             <div className="eyebrow text-sh-600">{p.category}</div>
@@ -100,7 +100,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <div className="grid gap-6 sm:grid-cols-3">
             {related.map((r) => (
               <Link key={r.slug} href={`/shashva/products/${r.slug}/`} className="group overflow-hidden rounded-2xl bg-white transition hover:-translate-y-1 hover:shadow-xl">
-                <ProductArt kind={r.art} className="aspect-[5/4] w-full" />
+                <ProductMedia product={r} />
                 <div className="p-5 font-semibold text-sh-900 group-hover:text-sh-600">{r.name}</div>
               </Link>
             ))}

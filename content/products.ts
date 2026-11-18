@@ -5,6 +5,7 @@ export type Product = {
   short: string;
   description: string;
   art: string; // illustration key, see components/ProductArt.tsx
+  image?: string; // optional real product photo; falls back to the illustration
   specs: { label: string; value: string }[];
 };
 
@@ -21,6 +22,7 @@ const baseSpecs = (extra: { label: string; value: string }[] = []) => [
 export const products: Product[] = [
   {
     slug: "semi-husked-coconuts",
+    image: "/images/products/semi-husked-coconuts.jpg",
     name: "Semi-Husked Coconuts",
     category: "Coconut Products",
     art: "coconut",
@@ -31,6 +33,7 @@ export const products: Product[] = [
   },
   {
     slug: "coconut-milk",
+    image: "/images/products/coconut-milk.jpg",
     name: "Coconut Milk",
     category: "Coconut Products",
     art: "milk",
@@ -41,6 +44,7 @@ export const products: Product[] = [
   },
   {
     slug: "desiccated-coconut",
+    image: "/images/products/desiccated-coconut.jpg",
     name: "Desiccated Coconut",
     category: "Coconut Products",
     art: "flakes",
@@ -51,6 +55,7 @@ export const products: Product[] = [
   },
   {
     slug: "coconut-sugar",
+    image: "/images/products/coconut-sugar.jpg",
     name: "Coconut Sugar",
     category: "Coconut Products",
     art: "sugar",
@@ -61,6 +66,7 @@ export const products: Product[] = [
   },
   {
     slug: "virgin-coconut-oil",
+    image: "/images/products/virgin-coconut-oil.jpg",
     name: "Virgin Coconut Oil",
     category: "Coconut Products",
     art: "oil",
@@ -71,6 +77,7 @@ export const products: Product[] = [
   },
   {
     slug: "pickles-chutneys",
+    image: "/images/products/pickles-chutneys.jpg",
     name: "Pickles and Chutneys",
     category: "Traditional Foods",
     art: "jar",
@@ -81,6 +88,7 @@ export const products: Product[] = [
   },
   {
     slug: "papads",
+    image: "/images/products/papads.jpg",
     name: "Papads",
     category: "Traditional Foods",
     art: "papad",
@@ -91,6 +99,7 @@ export const products: Product[] = [
   },
   {
     slug: "indian-vegetables",
+    image: "/images/products/indian-vegetables.jpg",
     name: "Indian Vegetables",
     category: "Fresh Produce",
     art: "veg",
@@ -101,6 +110,7 @@ export const products: Product[] = [
   },
   {
     slug: "gooseberry-moringa-powders",
+    image: "/images/products/gooseberry-moringa-powders.jpg",
     name: "Gooseberry and Moringa Leaf Powders",
     category: "Health Powders",
     art: "powder",

@@ -10,7 +10,7 @@ export default function HeroSection() {
     <section
       id="hero"
       className="relative isolate overflow-hidden bg-[#8e9299]"
-      style={{ height: "calc(85vh - var(--header-height))", minHeight: 520, maxHeight: 760 }}
+      style={{ height: "calc(70vh - var(--header-height))", minHeight: 480, maxHeight: 540 }}
     >
       {/* Static first frame: paints instantly so there is no blank/blue flash while the 3D scene loads */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -25,7 +25,7 @@ export default function HeroSection() {
       {/* 3D background — no overlay of any kind on top of it */}
       <LogisticsHeroAnimation />
 
-      <div className="pointer-events-none container-x relative flex h-full flex-col justify-center pb-20 pt-8 sm:pb-24">
+      <div className="pointer-events-none container-x relative flex h-full flex-col justify-center pb-16 pt-6 sm:pb-20">
         <div className="hero-rise max-w-3xl">
           <h1 className="font-display text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-5xl xl:text-6xl" style={textShadow}>
             Connecting Businesses.{" "}

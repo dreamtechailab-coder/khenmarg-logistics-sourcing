@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
-import ProductArt from "@/components/ProductArt";
+import ProductMedia from "@/components/ProductMedia";
 import { products, productCategories } from "@/content/products";
 
 export default function ProductGrid() {
@@ -30,7 +30,7 @@ export default function ProductGrid() {
         {list.map((p) => (
           <article key={p.slug} className="group flex flex-col overflow-hidden rounded-2xl border border-sh-100 bg-white transition hover:-translate-y-1 hover:shadow-xl">
             <Link href={`/shashva/products/${p.slug}/`} className="overflow-hidden">
-              <ProductArt kind={p.art} className="aspect-[5/4] w-full transition duration-500 group-hover:scale-105" />
+              <ProductMedia product={p} />
             </Link>
             <div className="flex flex-1 flex-col p-6">
               <div className="text-xs font-semibold uppercase tracking-wider text-sh-600">{p.category}</div>

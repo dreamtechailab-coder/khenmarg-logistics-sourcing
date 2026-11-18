@@ -2,9 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Leaf, Truck } from "lucide-react";
 import HeroSection from "@/components/HeroSection";
+import StatsBar from "@/components/StatsBar";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icon";
-import ProductArt from "@/components/ProductArt";
+import ProductMedia from "@/components/ProductMedia";
 import { SectionTitle, CtaBand } from "@/components/ui";
 import { services, highlights, industries } from "@/content/services";
 import { products } from "@/content/products";
@@ -14,26 +15,9 @@ export default function Home() {
     <>
       <HeroSection />
 
-      {/* Intro + stats */}
-      <section className="relative z-10 -mt-14">
-        <div className="container-x">
-          <Reveal className="grid overflow-hidden rounded-2xl bg-white shadow-2xl shadow-black/10 grid-cols-2 md:grid-cols-4">
-            {[
-              ["15+", "Years of industry experience"],
-              ["8", "Logistics services"],
-              ["Global", "Network of overseas partners"],
-              ["9", "Shashva food product lines"],
-            ].map(([n, l], i) => (
-              <div key={l} className={`p-5 sm:p-7 border-gray-100 ${i % 2 ? "border-l" : ""} ${i > 1 ? "border-t md:border-t-0" : ""} ${i === 2 ? "md:border-l" : ""}`}>
-                <div className="font-display text-2xl sm:text-3xl font-bold text-km-600">{n}</div>
-                <div className="mt-1 text-sm text-gray-600">{l}</div>
-              </div>
-            ))}
-          </Reveal>
-        </div>
-      </section>
+      <StatsBar />
 
-      <section className="container-x grid items-center gap-14 py-24 lg:grid-cols-2">
+      <section className="container-x grid items-center gap-8 py-12 md:py-16 lg:grid-cols-2 lg:gap-12">
         <Reveal>
           <div className="eyebrow mb-3 text-km-600">Who we are</div>
           <h2 className="text-3xl font-bold leading-tight md:text-4xl">
@@ -51,14 +35,14 @@ export default function Home() {
         </Reveal>
         <Reveal delay={150} className="relative">
           <div className="grid grid-cols-2 gap-4">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl">
-              <Image src="/images/sea2.jpg" alt="Container ship at port" fill className="object-cover" />
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl lg:aspect-auto lg:h-[360px]">
+              <Image src="/images/who-we-are-sea.jpg" alt="Container ship loaded with containers at a port terminal" fill sizes="(min-width: 1024px) 25vw, 45vw" className="object-cover" />
             </div>
-            <div className="mt-10 grid gap-4">
-              <div className="relative aspect-square overflow-hidden rounded-2xl">
-                <Image src="/images/air2.jpg" alt="Cargo aircraft on runway" fill className="object-cover" />
+            <div className="mt-8 grid gap-4">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+                <Image src="/images/who-we-are-air.jpg" alt="Cargo aircraft taking off from an international airport" fill sizes="(min-width: 1024px) 25vw, 45vw" className="object-cover" />
               </div>
-              <div className="rounded-2xl bg-km-600 p-6 text-white">
+              <div className="rounded-2xl bg-km-600 p-5 text-white">
                 <div className="font-display text-xl font-semibold">Door to door.</div>
                 <div className="text-sm text-white/80">Sea · Air · Rail · Road</div>
               </div>
@@ -68,18 +52,25 @@ export default function Home() {
       </section>
 
       {/* Two brands */}
-      <section className="bg-gray-50 py-24">
+      <section className="bg-gray-50 py-12 md:py-16">
         <div className="container-x">
-          <SectionTitle center eyebrow="Our businesses" title="Two brands, one commitment to reliability" />
+          <SectionTitle compact center eyebrow="Our businesses" title="Two brands, one commitment to reliability" />
           <div className="grid gap-6 md:grid-cols-2">
-            <Reveal className="group relative overflow-hidden rounded-3xl bg-km-900 p-10 text-white">
-              <Image src="/images/truck.jpg" alt="" fill className="object-cover opacity-30 transition duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-km-900 via-km-900/80 to-transparent" />
+            <Reveal className="group relative overflow-hidden rounded-3xl bg-slate-900 p-6 text-white min-h-[280px] lg:min-h-[310px] lg:p-8 shadow-lg transition-shadow duration-300 hover:shadow-2xl">
+              <Image
+                src="/images/logistics-card.jpg"
+                alt=""
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-900/50 to-slate-900/15" />
+              <div className="absolute inset-0 bg-gradient-to-r from-slate-950/70 via-slate-950/30 to-transparent" />
               <div className="relative">
-                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-km-600">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-km-600">
                   <Truck />
                 </div>
-                <div className="eyebrow text-km-500">Parent company</div>
+                <div className="eyebrow text-orange-300">Parent company</div>
                 <h3 className="mt-2 text-3xl font-bold">Khenmarg Logistics</h3>
                 <p className="mt-3 max-w-md text-white/80">
                   Freight forwarding, transportation and customs broking — logistics and global supply chain
@@ -90,11 +81,11 @@ export default function Home() {
                 </Link>
               </div>
             </Reveal>
-            <Reveal delay={120} className="group relative overflow-hidden rounded-3xl bg-sh-50 p-10">
+            <Reveal delay={120} className="group relative overflow-hidden rounded-3xl bg-sh-50 p-6 min-h-[280px] lg:min-h-[310px] lg:p-8">
               <div className="absolute -right-10 -top-10 h-56 w-56 rounded-full bg-sh-100" />
               <Image src="/logos/shashva-logo.png" alt="Shashva — Step to Healthy Lives" width={110} height={110} className="absolute right-8 top-8 h-24 w-24 drop-shadow-md" />
               <div className="relative">
-                <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-sh-600 text-white">
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-sh-600 text-white">
                   <Leaf />
                 </div>
                 <div className="eyebrow text-sh-600">Food export brand</div>
@@ -113,10 +104,10 @@ export default function Home() {
       </section>
 
       {/* Services */}
-      <section className="container-x py-24">
-        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <SectionTitle eyebrow="What we do" title="Logistics services" text="Complete freight and supply chain solutions under one roof." />
-          <Link href="/services/" className="btn-outline-km mb-12 self-start md:self-auto">
+      <section className="container-x py-12 md:py-16">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <SectionTitle compact eyebrow="What we do" title="Logistics services" text="Complete freight and supply chain solutions under one roof." />
+          <Link href="/services/" className="btn-outline-km mb-6 self-start md:mb-8 md:self-auto">
             All services <ArrowRight size={16} />
           </Link>
         </div>
@@ -136,15 +127,23 @@ export default function Home() {
       </section>
 
       {/* Why Khenmarg */}
-      <section className="relative overflow-hidden bg-km-900 py-24 text-white">
-        <Image src="/images/sea.jpg" alt="" fill className="object-cover opacity-15" />
+      <section className="relative overflow-hidden bg-slate-950 py-12 text-white lg:py-16">
+        <Image
+          src="/images/why-khenmarg-bg.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          loading="lazy"
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/85 via-slate-900/70 to-slate-950/60" />
         <div className="container-x relative">
-          <SectionTitle light eyebrow="Why Khenmarg" title="Capabilities that keep your cargo moving" />
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+          <SectionTitle compact light eyebrow="Why Khenmarg" title="Capabilities that keep your cargo moving" />
+          <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
             {highlights.slice(0, 8).map((h, i) => (
-              <Reveal key={h.label} delay={i * 50} className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-5 backdrop-blur">
-                <Icon name={h.icon} className="shrink-0 text-km-500" size={24} />
-                <span className="text-sm font-medium">{h.label}</span>
+              <Reveal key={h.label} delay={i * 50} className="flex items-center gap-3.5 rounded-xl border border-white/15 bg-white/10 px-4 py-3.5 backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:border-orange-500/60 hover:bg-white/15">
+                <Icon name={h.icon} className="shrink-0 text-orange-500" size={24} />
+                <span className="text-sm font-semibold">{h.label}</span>
               </Reveal>
             ))}
           </div>
@@ -152,11 +151,11 @@ export default function Home() {
       </section>
 
       {/* Shashva products teaser */}
-      <section className="bg-sh-50 py-24">
+      <section className="bg-sh-50 py-12 md:py-16">
         <div className="container-x">
-          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-            <SectionTitle theme="sh" eyebrow="Shashva · Step to Healthy Lives" title="Premium Indian food products for the world" text="Regular bulk exports with complete documentation, government certifications and on-time shipment." />
-            <Link href="/shashva/products/" className="btn-outline-sh mb-12 self-start md:self-auto">
+          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+            <SectionTitle compact theme="sh" eyebrow="Shashva · Step to Healthy Lives" title="Premium Indian food products for the world" text="Regular bulk exports with complete documentation, government certifications and on-time shipment." />
+            <Link href="/shashva/products/" className="btn-outline-sh mb-6 self-start md:mb-8 md:self-auto">
               All products <ArrowRight size={16} />
             </Link>
           </div>
@@ -165,10 +164,10 @@ export default function Home() {
               <Link
                 key={p.slug}
                 href={`/shashva/products/${p.slug}/`}
-                className="group w-60 shrink-0 snap-start overflow-hidden rounded-2xl bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl"
+                className="group w-60 shrink-0 snap-start overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
               >
-                <ProductArt kind={p.art} className="aspect-[5/4] w-full transition duration-500 group-hover:scale-105" />
-                <div className="p-5">
+                <ProductMedia product={p} sizes="240px" frame="h-40" />
+                <div className="p-4">
                   <div className="text-xs font-medium text-sh-600">{p.category}</div>
                   <h3 className="mt-1 font-semibold text-sh-900">{p.name}</h3>
                 </div>
@@ -179,8 +178,8 @@ export default function Home() {
       </section>
 
       {/* Industries */}
-      <section className="container-x py-24">
-        <SectionTitle center eyebrow="Industries we serve" title="Trusted across sectors" />
+      <section className="container-x py-12 md:py-16">
+        <SectionTitle compact center eyebrow="Industries we serve" title="Trusted across sectors" />
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {industries.map((ind, i) => (
             <Reveal key={ind.label} delay={i * 40} className="flex flex-col items-center gap-3 rounded-2xl border border-gray-100 p-6 text-center transition hover:border-km-100 hover:bg-km-50">

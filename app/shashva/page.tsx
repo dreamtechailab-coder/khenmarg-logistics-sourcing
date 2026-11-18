@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, BadgeCheck, IndianRupee, Clock, Ship } from "lucide-react";
 import Reveal from "@/components/Reveal";
-import ProductArt from "@/components/ProductArt";
+import ProductMedia from "@/components/ProductMedia";
 import WorldMap from "@/components/WorldMap";
 import { SectionTitle, CtaBand } from "@/components/ui";
 import { products } from "@/content/products";
@@ -107,7 +107,7 @@ export default function Shashva() {
           {products.map((p, i) => (
             <Reveal key={p.slug} delay={(i % 3) * 80}>
               <Link href={`/shashva/products/${p.slug}/`} className="group block overflow-hidden rounded-2xl border border-sh-100 bg-white transition hover:-translate-y-1 hover:shadow-xl">
-                <ProductArt kind={p.art} className="aspect-[5/4] w-full" />
+                <ProductMedia product={p} />
                 <div className="p-4 sm:p-5">
                   <h3 className="font-semibold text-sh-900 group-hover:text-sh-600">{p.name}</h3>
                 </div>
