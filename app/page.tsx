@@ -10,6 +10,17 @@ import { SectionTitle, CtaBand } from "@/components/ui";
 import { services, highlights, industries } from "@/content/services";
 import { products } from "@/content/products";
 
+const serviceTags: Record<string, string> = {
+  "sea-freight": "FCL & LCL • Global Ports",
+  "air-freight": "Express • Time-Critical",
+  "customs-clearance": "Import/Export • Compliance",
+  "project-cargo": "Heavy Lift • Break-Bulk",
+  "multimodal-transportation": "Sea • Air • Rail • Road",
+  consolidation: "Buyer Consolidation • LCL",
+  "coastal-cargo": "Coastal • Domestic Shipping",
+  "warehousing-distribution": "Storage • Last-Mile",
+};
+
 export default function Home() {
   return (
     <>
@@ -104,26 +115,54 @@ export default function Home() {
       </section>
 
       {/* Services */}
-      <section className="container-x py-12 md:py-16">
+      <section className="bg-gradient-to-b from-[#FAFBFD] to-[#F3F5F8]">
+      <div className="container-x py-12 md:py-16">
         <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <SectionTitle compact eyebrow="What we do" title="Logistics services" text="Complete freight and supply chain solutions under one roof." />
-          <Link href="/services/" className="btn-outline-km mb-6 self-start md:mb-8 md:self-auto">
-            All services <ArrowRight size={16} />
+          <Link
+            href="/services/"
+            className="group mb-6 inline-flex items-center gap-2 self-start rounded-full px-6 py-3 text-sm font-semibold text-white shadow-md shadow-orange-500/20 md:mb-8 md:self-auto"
+            style={{ background: "linear-gradient(135deg, #C8281E 0%, #E8541A 55%, #F58C22 100%)" }}
+          >
+            All services <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
           </Link>
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((s, i) => (
-            <Reveal key={s.slug} delay={i * 60}>
-              <Link href={`/services/#${s.slug}`} className="card group block h-full">
-                <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-km-50 text-km-600 transition group-hover:bg-km-600 group-hover:text-white">
-                  <Icon name={s.icon} size={22} />
+            <Reveal key={s.slug} delay={i * 60} className="h-full">
+              <Link
+                href={`/services/#${s.slug}`}
+                className="group relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-slate-200/75 bg-white p-6 transition-all duration-300 hover:-translate-y-1.5 hover:border-orange-300/80 hover:shadow-xl hover:shadow-orange-950/10"
+              >
+                <span
+                  aria-hidden
+                  className="absolute inset-x-0 top-0 h-[3px] opacity-60 transition-opacity duration-300 group-hover:opacity-100"
+                  style={{ background: "linear-gradient(90deg, #C8281E 0%, #E8541A 50%, #F58C22 100%)" }}
+                />
+                <span aria-hidden className="absolute right-5 top-4 text-2xl font-bold text-slate-200/80">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  <div
+                    className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl text-white shadow-md shadow-orange-500/20"
+                    style={{ background: "linear-gradient(135deg, #C8281E 0%, #E8541A 60%, #F58C22 100%)" }}
+                  >
+                    <Icon name={s.icon} size={22} />
+                  </div>
+                  <h3 className="text-lg font-semibold text-slate-900">{s.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-gray-600">{s.short}</p>
+                  {serviceTags[s.slug] && (
+                    <span className="mt-4 inline-block rounded-full bg-orange-50 px-3 py-1 text-xs font-semibold text-km-600">
+                      {serviceTags[s.slug]}
+                    </span>
+                  )}
                 </div>
-                <h3 className="text-lg font-semibold">{s.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-gray-600">{s.short}</p>
+                <div className="mt-6 border-t border-slate-100 pt-4 text-sm font-semibold text-km-600">Learn more →</div>
               </Link>
             </Reveal>
           ))}
         </div>
+      </div>
       </section>
 
       {/* Why Khenmarg */}

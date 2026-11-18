@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Eye, Target, ArrowRight } from "lucide-react";
+import { Eye, Target, Gem } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import KhenmargLogo from "@/components/KhenmargLogo";
 import Icon from "@/components/Icon";
-import { PageHero, SectionTitle, CtaBand } from "@/components/ui";
+import { PageHero, SectionTitle } from "@/components/ui";
 import { values } from "@/content/services";
-import { site } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -42,7 +42,7 @@ export default function About() {
               sustainable, and fulfil our customers&apos; needs.
             </p>
             <p>
-              We provide a comprehensive range of 4PL services to support and streamline all supply chain processes —
+              We provide a comprehensive range of 4PL services to support and streamline all supply chain processes
               from tendering, global sourcing and transport management to customs, freight cost management,
               warehousing and distribution. We focus on enhancing customer service through efficient supply chain
               management, by optimising and standardising logistics and reducing procurement lead time.
@@ -68,23 +68,70 @@ export default function About() {
 
       {/* Vision & Mission */}
       <section className="bg-gray-50 py-12 md:py-16">
-        <div className="container-x grid gap-5 md:grid-cols-2 lg:gap-6">
-          <Reveal className="rounded-3xl bg-km-900 p-5 text-white lg:p-6">
-            <Eye className="mb-4 text-km-500" size={32} />
-            <h2 className="text-2xl font-bold">Our Vision</h2>
-            <p className="mt-3 text-lg leading-relaxed text-white/85">
-              To be the leading international freight forwarding company, renowned for exceptional service, quality,
-              reliability, and innovation.
-            </p>
+        <div className="container-x grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+          <Reveal className="h-full">
+            <div className="group relative h-full overflow-hidden rounded-2xl text-white">
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.02]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(135deg, rgba(38, 14, 4, 0.86) 0%, rgba(28, 10, 3, 0.72) 100%), url('/images/vision-bg.jpg')",
+                }}
+              />
+              <div className="relative p-5 lg:p-6">
+                <Eye className="mb-4 text-km-500" size={32} />
+                <h2 className="text-2xl font-bold">Our Vision</h2>
+                <p className="mt-3 text-lg leading-relaxed text-white/90">
+                  To be the leading international freight forwarding company, renowned for exceptional service,
+                  quality, reliability, and innovation.
+                </p>
+              </div>
+            </div>
           </Reveal>
-          <Reveal delay={120} className="rounded-3xl bg-gradient-to-br from-km-600 to-km-500 p-5 text-white lg:p-6">
-            <Target className="mb-4 text-white" size={32} />
-            <h2 className="text-2xl font-bold">Our Mission</h2>
-            <p className="mt-3 text-lg leading-relaxed text-white/90">
-              To simplify and streamline the complexities of international shipping. We leverage a deep understanding
-              of global trade to offer tailored logistics solutions that ensure timely and cost-effective delivery of
-              goods across the globe.
-            </p>
+          <Reveal delay={120} className="h-full">
+            <div className="group relative h-full overflow-hidden rounded-2xl text-white">
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.02]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(135deg, rgba(200, 40, 30, 0.85) 0%, rgba(232, 84, 26, 0.76) 60%, rgba(245, 140, 34, 0.72) 100%), url('/images/mission-bg-new.jpg')",
+                }}
+              />
+              <div className="relative p-5 lg:p-6">
+                <Target className="mb-4 text-white" size={32} />
+                <h2 className="text-2xl font-bold">Our Mission</h2>
+                <p className="mt-3 text-lg leading-relaxed text-white">
+                  To simplify and streamline the complexities of international shipping. We leverage a deep
+                  understanding of global trade to offer tailored logistics solutions that ensure timely and
+                  cost-effective delivery of goods across the globe.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+          <Reveal delay={240} className="h-full md:col-span-2 lg:col-span-1">
+            <div className="group relative h-full overflow-hidden rounded-2xl text-white">
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-[1.02]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(30, 41, 59, 0.78) 100%), url('/images/values-bg.jpg')",
+                }}
+              />
+              <div className="relative p-5 lg:p-6">
+                <Gem className="mb-4 text-km-500" size={32} />
+                <h2 className="text-2xl font-bold">Our Values</h2>
+                <ul className="mt-3 space-y-2 text-lg text-white/90">
+                  {["Customer-Centricity", "Operational Excellence", "Innovation", "Integrity", "Collaboration"].map(
+                    (v) => (
+                      <li key={v} className="flex items-center gap-3">
+                        <span className="h-2 w-2 shrink-0 rounded-full bg-amber-400" aria-hidden />
+                        {v}
+                      </li>
+                    ),
+                  )}
+                </ul>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>
@@ -110,45 +157,56 @@ export default function About() {
         <div className="container-x">
           <SectionTitle compact center eyebrow="Our brands" title="Khenmarg and Shashva" />
           <div className="grid gap-5 md:grid-cols-2 lg:gap-6">
-            <Reveal className="card flex flex-col items-start gap-4 !p-5 lg:!p-6">
-              <Image src="/logos/khenmarg-logo.png" alt="Khenmarg" width={200} height={73} className="h-16 w-auto" />
-              <div>
-                <div className="font-display text-lg font-semibold">Khenmarg Logistics Sourcing Pvt. Ltd.</div>
-                <p className="mt-1 text-sm text-gray-600">Parent company — Logistics, Freight Forwarding & Global Supply Chain</p>
+            <Reveal className="h-full">
+              <div
+                className="relative flex h-full flex-col items-start gap-4 overflow-hidden rounded-2xl border border-[#F3D2C1] p-5 shadow-md lg:p-6"
+                style={{ background: "linear-gradient(135deg, #FFFDFB 0%, #FFF5F0 65%, #FDECE3 100%)" }}
+              >
+                <span
+                  aria-hidden
+                  className="absolute inset-x-0 top-0 h-1"
+                  style={{ background: "linear-gradient(90deg, #C8281E 0%, #E8541A 50%, #F58C22 100%)" }}
+                />
+                <div className="flex items-center justify-start gap-2.5">
+                  <KhenmargLogo />
+                </div>
+                <div>
+                  <div className="font-display text-lg font-semibold">Khenmarg Logistics Sourcing Pvt. Ltd.</div>
+                  <p className="mt-1 text-sm text-gray-600">Parent company — Logistics, Freight Forwarding & Global Supply Chain</p>
+                </div>
+                <Link href="/services/" className="mt-auto text-sm font-semibold text-km-600 hover:underline">Our services →</Link>
               </div>
-              <Link href="/services/" className="mt-auto text-sm font-semibold text-km-600 hover:underline">Our services →</Link>
             </Reveal>
-            <Reveal delay={120} className="card flex flex-col items-start gap-4 !p-5 lg:!p-6">
-              <Image src="/logos/shashva-logo.png" alt="Shashva" width={80} height={80} className="h-16 w-16" />
-              <div>
-                <div className="font-display text-lg font-semibold text-sh-700">Shashva — A Food Export Brand by Khenmarg</div>
-                <p className="mt-1 text-sm text-gray-600">Sub-brand — Premium Indian Food Products & International Exports</p>
+            <Reveal delay={120} className="h-full">
+              <div
+                className="relative flex h-full flex-col items-start gap-4 overflow-hidden rounded-2xl border border-[#D5E5CE] p-5 shadow-md lg:p-6"
+                style={{ background: "linear-gradient(135deg, #FCFDFB 0%, #F3F8F1 65%, #E7F1E3 100%)" }}
+              >
+                <span
+                  aria-hidden
+                  className="absolute inset-x-0 top-0 h-1"
+                  style={{ background: "linear-gradient(90deg, #344C21 0%, #6B8E38 100%)" }}
+                />
+                <div className="flex items-center justify-start">
+                  <Image
+                    src="/images/shashva-logo-horizontal.png"
+                    alt="Shashva – Step to Healthy Lives"
+                    width={360}
+                    height={120}
+                    quality={100}
+                    className="h-11 w-auto object-contain mix-blend-multiply md:h-12"
+                  />
+                </div>
+                <div>
+                  <div className="font-display text-lg font-semibold text-sh-700">Shashva — A Food Export Brand by Khenmarg</div>
+                  <p className="mt-1 text-sm text-gray-600">Sub-brand — Premium Indian Food Products & International Exports</p>
+                </div>
+                <Link href="/shashva/" className="mt-auto text-sm font-semibold text-sh-600 hover:underline">Discover Shashva →</Link>
               </div>
-              <Link href="/shashva/" className="mt-auto text-sm font-semibold text-sh-600 hover:underline">Discover Shashva →</Link>
             </Reveal>
           </div>
         </div>
       </section>
-
-      {/* Leadership */}
-      <section className="container-x py-12 md:py-16">
-        <SectionTitle compact eyebrow="Our team" title="Talk to the people who move your cargo" />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-          <Reveal className="card flex items-center gap-4 !p-5">
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-km-600 font-display text-xl font-bold text-white">
-              LN
-            </div>
-            <div>
-              <div className="font-semibold">{site.contactPerson.name}</div>
-              <div className="text-sm text-gray-600">{site.contactPerson.role}</div>
-              <a href={site.phones[1].href} className="text-sm font-medium text-km-600">{site.phones[1].label}</a>
-            </div>
-          </Reveal>
-        </div>
-        <Link href="/contact/" className="btn-km mt-6">Contact our team <ArrowRight size={16} /></Link>
-      </section>
-
-      <CtaBand compact />
     </>
   );
 }

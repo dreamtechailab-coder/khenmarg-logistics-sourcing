@@ -5,27 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ChevronDown, Menu, X, Phone } from "lucide-react";
 import { nav, shashvaNav, site } from "@/content/site";
-
-function KhenmargLogo() {
-  return (
-    <>
-      <Image src="/logos/khenmarg-mark.png" alt="" width={130} height={135} className="logo-img h-[38px] w-auto object-contain md:h-[42px]" priority />
-      <div className="flex flex-col justify-center gap-[3px]">
-        <Image
-          src="/logos/khenmarg-title.png"
-          alt="Khen Marg"
-          width={719}
-          height={64}
-          className="logo-img h-[16px] w-auto object-contain object-left md:h-[19px]"
-          priority
-        />
-        <span className="whitespace-nowrap font-sans text-[11px] font-medium leading-none tracking-[0.03em] text-slate-700 md:text-xs">
-          We pave the way for your cargo…
-        </span>
-      </div>
-    </>
-  );
-}
+import KhenmargLogo from "@/components/KhenmargLogo";
 
 export default function Header() {
   const pathname = usePathname() || "/";
@@ -81,13 +61,15 @@ export default function Header() {
       >
         <Link href={isShashva ? "/shashva/" : "/"} className="flex items-center gap-2.5" aria-label="Home">
           {isShashva ? (
-            <>
-              <Image src="/logos/shashva-logo.png" alt="Shashva" width={56} height={56} className="h-12 w-12" />
-              <div className="leading-tight">
-                <div className="font-display text-lg font-bold tracking-wide text-sh-700">SHASHVA</div>
-                <div className="text-[11px] text-gray-500">A Food Export Brand by Khenmarg</div>
-              </div>
-            </>
+            <Image
+              src="/images/shashva-logo-horizontal.png"
+              alt="Shashva – Step to Healthy Lives"
+              width={360}
+              height={120}
+              quality={100}
+              priority
+              className="h-11 w-auto object-contain md:h-12"
+            />
           ) : (
             <KhenmargLogo />
           )}
