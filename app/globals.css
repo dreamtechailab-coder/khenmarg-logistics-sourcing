@@ -137,3 +137,53 @@ h1, h2, h3, h4 {
 @keyframes svc-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 .svc-in { animation: svc-in 300ms ease-out both; }
 @media (prefers-reduced-motion: reduce) { .svc-in { animation: none; } }
+
+/* Industries & Network trade-route map: flowing light trail along each arc */
+@keyframes nm-dash {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+.nm-flow {
+  animation: nm-dash 3.2s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .nm-flow { animation: none; }
+}
+
+/* Shashva hero: organic leaf motion + gentle badge float/glow */
+@keyframes sh-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes sh-orbit { to { transform: rotate(360deg); } }
+@keyframes sh-sway { 0%, 100% { transform: rotate(-12deg) scale(1); } 50% { transform: rotate(14deg) scale(1.08); } }
+@keyframes sh-glow { 0%, 100% { opacity: 0.35; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.05); } }
+.sh-float { animation: sh-float 6s ease-in-out infinite; will-change: transform; }
+.sh-float-slow { animation: sh-float 5s ease-in-out -2s infinite; will-change: transform; }
+.sh-orbit { animation: sh-orbit 70s linear infinite; will-change: transform; }
+.sh-sway { animation: sh-sway 5s ease-in-out infinite; transform-origin: 50% 90%; will-change: transform; }
+.sh-glow { animation: sh-glow 4.5s ease-in-out infinite; will-change: transform, opacity; }
+@media (prefers-reduced-motion: reduce) {
+  .sh-float, .sh-float-slow, .sh-orbit, .sh-sway, .sh-glow { animation: none; }
+}
+
+/* Shashva logo leaves: bloom on mount, then breeze sway + emerald shimmer */
+@keyframes sh-bloom {
+  from { transform: scale(0.15) rotate(-28deg); opacity: 0; }
+  60% { transform: scale(1.08) rotate(5deg); opacity: 1; }
+  to { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+@keyframes sh-breeze {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  35% { transform: rotate(var(--sway, 4deg)) scale(1.015); }
+  70% { transform: rotate(calc(var(--sway, 4deg) * -0.6)) scale(1); }
+}
+@keyframes sh-shimmer {
+  0%, 100% { filter: brightness(1) saturate(1); }
+  50% { filter: brightness(1.22) saturate(1.3) drop-shadow(0 0 4px rgba(123, 160, 67, 0.7)); }
+}
+.sh-leafwrap { position: absolute; will-change: transform; }
+.sh-leafwrap img { width: 100%; height: 100%; display: block; animation: sh-shimmer 4.2s ease-in-out infinite; }
+.sh-leafwrap {
+  animation: sh-bloom 0.8s cubic-bezier(0.22, 1, 0.36, 1) both, sh-breeze 5.2s ease-in-out 0.8s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .sh-leafwrap, .sh-leafwrap img { animation: none; }
+}

@@ -16,8 +16,10 @@ export default function Products() {
         eyebrow="Shashva · Our products"
         title="Premium Indian food products for export"
         intro="Consistent quality, competitive pricing and reliable delivery across our full range."
-        image="/images/sea2.jpg"
-        crumbs={[{ label: "Shashva", href: "/shashva/" }, { label: "Our Products" }]}
+        image="/images/shashva-products-hero.jpg"
+        compact
+        showCrumbs={false}
+        overlayGradient="linear-gradient(90deg, rgba(16, 38, 20, 0.90) 0%, rgba(24, 54, 28, 0.72) 52%, rgba(46, 107, 52, 0.25) 100%)"
       />
       <ProductGrid />
       <CtaBand theme="sh" title="Need a product quote?" text="Select the products you need and share your quantities." href="/contact/?type=shashva#enquiry" />

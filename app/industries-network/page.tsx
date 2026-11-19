@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icon";
-import WorldMap from "@/components/WorldMap";
-import { PageHero, SectionTitle, CtaBand } from "@/components/ui";
+import NetworkMap from "@/components/NetworkMap";
+import { SectionTitle, CtaBand } from "@/components/ui";
 import { industries, highlights } from "@/content/services";
 
 export const metadata: Metadata = {
@@ -18,15 +19,25 @@ const airlines: string[] = [];
 export default function Industries() {
   return (
     <>
-      <PageHero
-        eyebrow="Industries & global network"
-        title="Connected globally, trusted across industries"
-        intro="A proactive network of overseas partners — leading names in their own countries — gives our customers a truly integrated global supply chain."
-        image="/images/air.jpg"
-        crumbs={[{ label: "Industries & Global Network" }]}
-      />
+      <section className="relative overflow-hidden bg-km-900">
+        <Image src="/images/industries-hero.jpg" alt="" fill sizes="100vw" className="object-cover object-[50%_60%]" priority />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(15, 20, 28, 0.88) 0%, rgba(25, 20, 18, 0.68) 55%, rgba(200, 40, 30, 0.25) 100%)",
+          }}
+        />
+        <div className="container-x relative py-14 text-white md:py-20">
+          <div className="eyebrow mb-3 font-semibold tracking-wider text-[#F58C22]">Industries &amp; global network</div>
+          <h1 className="max-w-3xl text-4xl font-bold leading-tight md:text-5xl">Global Reach. Industry-Focused Precision.</h1>
+          <p className="mt-5 max-w-2xl text-lg text-white/85">
+            Backed by an agile network of leading international partners across key trade lanes, Khenmarg delivers tailored, end-to-end supply chain solutions built around the unique demands of every industry we serve.
+          </p>
+        </div>
+      </section>
 
-      <section className="container-x py-24">
+      <section className="container-x py-12 md:py-16">
         <SectionTitle eyebrow="Industries served" title="Sector experience you can rely on" />
         <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
           {industries.map((ind, i) => (
@@ -40,21 +51,38 @@ export default function Industries() {
         </div>
       </section>
 
-      <section className="overflow-hidden bg-gradient-to-br from-[#1a0c07] via-km-900 to-[#2a120a] py-24 text-white">
-        <div className="container-x">
-          <SectionTitle
-            light
-            eyebrow="Global network"
-            title="From Chennai to the world"
-            text="Through worldwide agents and overseas partners, we move cargo across continents — with a strong focus on the Gulf region."
-          />
+      <section
+        className="relative isolate overflow-hidden py-10 text-white md:py-12"
+        style={{ background: "linear-gradient(135deg, #120a07 0%, #2a120a 50%, #3a1810 100%)" }}
+      >
+        {/* aurora glows */}
+        <div aria-hidden className="pointer-events-none absolute -left-40 top-1/2 -z-10 h-[26rem] w-[26rem] -translate-y-1/2 rounded-full bg-[#C8281E]/25 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute -right-32 -top-24 -z-10 h-[28rem] w-[28rem] rounded-full bg-[#F58C22]/20 blur-3xl" />
+        <div aria-hidden className="pointer-events-none absolute bottom-[-10rem] left-1/3 -z-10 h-80 w-80 rounded-full bg-[#E8541A]/15 blur-3xl" />
+        {/* fine architectural grid */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{
+            opacity: 0.07,
+            backgroundImage:
+              "linear-gradient(#F58C22 1px, transparent 1px), linear-gradient(90deg, #F58C22 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+            maskImage: "radial-gradient(ellipse at 60% 50%, #000 15%, transparent 75%)",
+            WebkitMaskImage: "radial-gradient(ellipse at 60% 50%, #000 15%, transparent 75%)",
+          }}
+        />
+        {/* glowing edge accents */}
+        <div aria-hidden className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#F58C22]/60 to-transparent" />
+        <div aria-hidden className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#E8541A]/50 to-transparent" />
+        <div className="container-x relative">
           <Reveal>
-            <WorldMap />
+            <NetworkMap />
           </Reveal>
         </div>
       </section>
 
-      <section className="container-x py-24">
+      <section className="container-x py-12 md:py-16">
         <SectionTitle eyebrow="Capabilities" title="What our network makes possible" />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {highlights.map((h, i) => (
@@ -66,7 +94,7 @@ export default function Industries() {
         </div>
       </section>
 
-      <section className="bg-gray-50 py-24">
+      <section className="bg-gray-50 py-12 md:py-16">
         <div className="container-x grid gap-10 md:grid-cols-2">
           {[
             { title: "Our Preferred Carriers", list: carriers, icon: "Ship" },

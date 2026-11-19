@@ -35,14 +35,43 @@ export default function Services() {
         </div>
       </section>
 
-      <ServicesTabs items={services.map(({ slug, title, icon, image, body, points }) => ({ slug, title, icon, image, body, points }))} />
+      <ServicesTabs items={services.map(({ slug, title, icon, image, imagePosition, body, points }) => ({ slug, title, icon, image, imagePosition, body, points }))} />
 
-      <section className="bg-km-900 py-10 text-white md:py-12">
-        <div className="container-x">
-          <SectionTitle light eyebrow="Value added services" title="More than moving boxes" />
+      <section className="relative isolate overflow-hidden bg-[#FFF6EE] py-10 md:py-12">
+        {/* golden-hour port photo backdrop */}
+        <Image
+          src="/images/customs3.jpg"
+          alt=""
+          fill
+          sizes="100vw"
+          className="-z-20 object-cover object-[50%_60%]"
+          aria-hidden
+        />
+        {/* warm ivory wash: strong on the left for text, lets the sunset glow through on the right */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10"
+          style={{
+            background:
+              "linear-gradient(100deg, rgba(255,251,247,0.96) 0%, rgba(255,246,238,0.90) 40%, rgba(255,226,196,0.62) 75%, rgba(245,140,34,0.40) 100%)",
+          }}
+        />
+        {/* soft amber glow + bottom accent */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-24 top-0 -z-10 h-80 w-80 rounded-full bg-[#F58C22]/30 blur-3xl"
+        />
+        <div aria-hidden className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#F58C22]/60 to-transparent" />
+
+        <div className="container-x relative">
+          <SectionTitle compact eyebrow="Value added services" title="More than moving boxes" />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {valueAdded.map((v, i) => (
-              <Reveal key={v} delay={i * 50} className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/5 p-5">
+              <Reveal
+                key={v}
+                delay={i * 50}
+                className="flex items-start gap-3 rounded-xl border border-orange-100 bg-white/90 p-5 text-slate-800 shadow-md shadow-orange-900/10 backdrop-blur-sm"
+              >
                 <Check />
                 <span>{v}</span>
               </Reveal>
@@ -51,7 +80,13 @@ export default function Services() {
         </div>
       </section>
 
-      <CtaBand title="Need a freight quote?" text="Share your cargo details and we'll get back with the best route and rate." />
+      <CtaBand
+        title="Have a shipment in mind?"
+        text="Connect with our team to discuss your cargo requirements and end-to-end shipping solutions."
+        href="/contact/"
+        ctaLabel="Contact Us"
+        ctaGhost
+      />
     </>
   );
 }

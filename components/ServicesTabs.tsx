@@ -1,11 +1,10 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import Icon from "@/components/Icon";
 
-type Item = { slug: string; title: string; icon: string; image?: string; body: string; points?: string[] };
+type Item = { slug: string; title: string; icon: string; image?: string; imagePosition?: string; body: string; points?: string[] };
 
 const GRAD = "linear-gradient(135deg, #C8281E 0%, #E8541A 55%, #F58C22 100%)";
 const ROTATE_MS = 10000;
@@ -102,17 +101,18 @@ export default function ServicesTabs({ items }: { items: Item[] }) {
         <div key={s.slug} className="svc-in grid grid-cols-1 lg:grid-cols-12">
         <div className="relative h-64 md:h-72 lg:col-span-5 lg:h-auto lg:min-h-[22rem]">
           {s.image ? (
-            <Image src={s.image} alt={s.title} fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" />
+            <Image src={s.image} alt={s.title} fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" style={s.imagePosition ? { objectPosition: s.imagePosition } : undefined} />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-km-50 to-km-100">
               <Icon name={s.icon} size={96} strokeWidth={1.2} className="text-km-600" />
             </div>
           )}
+          <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 to-transparent" />
           <span className="absolute bottom-3 left-3 rounded-full bg-slate-900/75 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
             {String(idx + 1).padStart(2, "0")} • {s.title}
           </span>
         </div>
-        <div className="p-6 md:p-8 lg:col-span-7">
+        <div className="p-6 md:p-8 lg:col-span-7 lg:flex lg:flex-col lg:justify-center">
           <div className="mb-3 flex items-center gap-3">
             <span
               className="inline-flex h-11 w-11 items-center justify-center rounded-xl text-white shadow-md shadow-orange-500/20"
@@ -132,13 +132,6 @@ export default function ServicesTabs({ items }: { items: Item[] }) {
               ))}
             </ul>
           )}
-          <Link
-            href={`/contact/?service=${s.slug}#enquiry`}
-            className="group mt-6 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-orange-500/20"
-            style={{ background: GRAD }}
-          >
-            Request a Quote <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
-          </Link>
         </div>
         </div>
       </article>

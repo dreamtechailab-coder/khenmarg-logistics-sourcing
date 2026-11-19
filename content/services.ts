@@ -6,6 +6,7 @@ export type Service = {
   body: string;
   points?: string[];
   image?: string;
+  imagePosition?: string; // CSS object-position for the card image
 };
 
 export const services: Service[] = [
@@ -13,7 +14,8 @@ export const services: Service[] = [
     slug: "sea-freight",
     title: "Sea Freight",
     icon: "Ship",
-    image: "/images/sea2.jpg",
+    image: "/images/sea3.jpg",
+    imagePosition: "60% 75%",
     short: "FCL & LCL exports and imports through a proactive global partner network.",
     body:
       "Khenmarg is connected globally through a very proactive network of overseas partners who are leading names in the industry in their respective countries. This allows us to provide a truly global and integrated logistics and supply chain that brings businesses closer together.",
@@ -30,7 +32,8 @@ export const services: Service[] = [
     slug: "air-freight",
     title: "Air Freight",
     icon: "Plane",
-    image: "/images/air2.jpg",
+    image: "/images/air3.jpg",
+    imagePosition: "50% 55%",
     short: "The right mix of speed, transit time and service quality for urgent cargo.",
     body:
       "Our air freight products are dedicated to providing the right combination of speed, time and quality, responding efficiently to our clients' demands. We offer selective origins and destinations for air cargo that benefit from strong pricing and timely delivery.",
@@ -47,6 +50,8 @@ export const services: Service[] = [
     slug: "customs-clearance",
     title: "Customs Clearance",
     icon: "FileCheck2",
+    image: "/images/customs3.jpg",
+    imagePosition: "50% 60%",
     short: "Import and export clearance with complete, accurate documentation.",
     body:
       "As a customs broker, we handle the paperwork and formalities for your imports and exports so your cargo moves through ports and airports without avoidable delays.",
@@ -56,6 +61,8 @@ export const services: Service[] = [
     slug: "project-cargo",
     title: "Project Cargo",
     icon: "Container",
+    image: "/images/project3.jpg",
+    imagePosition: "40% 38%",
     short: "Planning and handling of heavy, oversized and break-bulk shipments.",
     body:
       "We have the expertise to plan and move project cargo and break-bulk shipments, including heavy and out-of-gauge equipment, from origin to site.",
@@ -65,7 +72,8 @@ export const services: Service[] = [
     slug: "multimodal-transportation",
     title: "Multimodal Transportation",
     icon: "Route",
-    image: "/images/rail.jpg",
+    image: "/images/multimodal3.jpg",
+    imagePosition: "60% 55%",
     short: "Sea, air, rail and road combined under one bill of lading.",
     body:
       "We combine sea, air, rail and road to find the right balance of cost and transit time, and issue MTO bills of lading for a single point of responsibility.",
@@ -75,6 +83,8 @@ export const services: Service[] = [
     slug: "consolidation",
     title: "Consolidation",
     icon: "Boxes",
+    image: "/images/consolidation3.jpg",
+    imagePosition: "50% 45%",
     short: "LCL and buyer consolidation to cut freight costs on smaller shipments.",
     body:
       "Grouping shipments from multiple suppliers or for multiple buyers into one container reduces costs and simplifies handling at destination.",
@@ -84,6 +94,8 @@ export const services: Service[] = [
     slug: "coastal-cargo",
     title: "Coastal Cargo",
     icon: "Anchor",
+    image: "/images/coastal3.jpg",
+    imagePosition: "50% 50%",
     short: "Domestic coastal shipping between Indian ports.",
     body:
       "Coastal shipping is a cost-effective alternative to long road hauls for moving cargo between Indian ports.",
@@ -93,7 +105,8 @@ export const services: Service[] = [
     slug: "warehousing-distribution",
     title: "Warehousing & Distribution",
     icon: "Warehouse",
-    image: "/images/warehouse.jpg",
+    image: "/images/warehouse3.jpg",
+    imagePosition: "50% 40%",
     short: "Storage, bonded warehousing, CFS management and onward distribution.",
     body:
       "From storage to final delivery, we manage warehousing and distribution as part of your end-to-end supply chain.",

@@ -92,9 +92,32 @@ export default function Home() {
                 </Link>
               </div>
             </Reveal>
-            <Reveal delay={120} className="group relative overflow-hidden rounded-3xl bg-sh-50 p-6 min-h-[280px] lg:min-h-[310px] lg:p-8">
-              <div className="absolute -right-10 -top-10 h-56 w-56 rounded-full bg-sh-100" />
-              <Image src="/logos/shashva-logo.png" alt="Shashva — Step to Healthy Lives" width={110} height={110} className="absolute right-8 top-8 h-24 w-24 drop-shadow-md" />
+            <Reveal delay={120} className="group relative overflow-hidden rounded-3xl bg-sh-50 p-6 min-h-[280px] lg:min-h-[310px] lg:p-8 shadow-lg transition-shadow duration-300 hover:shadow-2xl">
+              <Image
+                src="/images/shashva-card-bg.jpg"
+                alt=""
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover object-[50%_50%] transition-transform duration-500 ease-out group-hover:scale-105"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0"
+                style={{
+                  background:
+                    "linear-gradient(105deg, rgba(247, 244, 234, 0.96) 0%, rgba(245, 241, 228, 0.88) 52%, rgba(46, 90, 54, 0.22) 100%)",
+                }}
+              />
+              <div className="absolute right-5 top-5 h-24 w-24 overflow-hidden rounded-full bg-white shadow-xl shadow-sh-900/25 ring-4 ring-white sm:right-8 sm:top-8">
+                <Image
+                  src="/images/shashva-logo-badge-hd.png"
+                  alt="Shashva — Step to Healthy Lives"
+                  fill
+                  sizes="96px"
+                  quality={95}
+                  className="object-cover"
+                />
+              </div>
               <div className="relative">
                 <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-sh-600 text-white">
                   <Leaf />
@@ -105,7 +128,7 @@ export default function Home() {
                   Premium quality food products sourced from India and supplied to markets worldwide, with a special
                   focus on the Gulf region.
                 </p>
-                <Link href="/shashva/products/" className="btn-sh mt-8">
+                <Link href="/shashva/products/" className="btn-sh mt-8 !bg-[#2E6B34] hover:!bg-[#1E4620]">
                   View Products <ArrowRight size={16} />
                 </Link>
               </div>

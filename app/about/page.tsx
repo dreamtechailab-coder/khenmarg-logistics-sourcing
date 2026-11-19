@@ -25,6 +25,7 @@ export default function About() {
         tone="navy"
         compact
         showCrumbs={false}
+        overlayGradient="linear-gradient(90deg, rgba(15, 20, 28, 0.86) 0%, rgba(24, 19, 17, 0.65) 52%, rgba(232, 84, 26, 0.18) 100%)"
       />
 
       <section className="container-x grid gap-8 py-12 md:py-16 lg:grid-cols-12 lg:gap-10">

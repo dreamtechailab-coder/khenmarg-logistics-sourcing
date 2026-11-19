@@ -10,6 +10,12 @@ import KhenmargLogo from "@/components/KhenmargLogo";
 export default function Header() {
   const pathname = usePathname() || "/";
   const isShashva = pathname.startsWith("/shashva");
+  const contactStyle = isShashva
+    ? { background: "linear-gradient(135deg, #1E4620 0%, #2E6B34 55%, #4A8F3C 100%)" }
+    : {
+        background: "linear-gradient(135deg, #C8281E 0%, #E8541A 50%, #F58C22 100%)",
+        boxShadow: "0 4px 14px rgba(232, 84, 26, 0.35)",
+      };
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [dd, setDd] = useState(false);
@@ -125,11 +131,8 @@ export default function Header() {
             </div>
           <Link
             href="/contact/"
-            className="inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:brightness-110"
-            style={{
-              background: "linear-gradient(135deg, #C8281E 0%, #E8541A 50%, #F58C22 100%)",
-              boxShadow: "0 4px 14px rgba(232, 84, 26, 0.35)",
-            }}
+            className={`inline-flex items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:brightness-110 ${isShashva ? "shadow-lg shadow-emerald-900/20" : ""}`}
+            style={contactStyle}
           >
             Contact Us
           </Link>
@@ -175,11 +178,8 @@ export default function Header() {
           ))}
           <Link
             href="/contact/"
-            className="mt-6 flex w-full items-center justify-center rounded-full px-6 py-3 font-semibold text-white"
-            style={{
-              background: "linear-gradient(135deg, #C8281E 0%, #E8541A 50%, #F58C22 100%)",
-              boxShadow: "0 4px 14px rgba(232, 84, 26, 0.35)",
-            }}
+            className={`mt-6 flex w-full items-center justify-center rounded-full px-6 py-3 font-semibold text-white ${isShashva ? "shadow-lg shadow-emerald-900/20" : ""}`}
+            style={contactStyle}
           >
             Contact Us
           </Link>

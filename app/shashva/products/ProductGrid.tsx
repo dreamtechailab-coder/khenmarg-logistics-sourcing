@@ -10,7 +10,7 @@ export default function ProductGrid() {
   const list = cat === "All" ? products : products.filter((p) => p.category === cat);
 
   return (
-    <section className="container-x py-16">
+    <section className="container-x py-10 md:py-14">
       <div className="mb-10 flex flex-wrap gap-2" role="tablist">
         {productCategories.map((c) => (
           <button

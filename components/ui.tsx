@@ -16,6 +16,7 @@ export function PageHero({
   showCrumbs = true,
   tone = "default",
   compact = false,
+  overlayGradient,
 }: {
   title: string;
   eyebrow?: string;
@@ -26,6 +27,8 @@ export function PageHero({
   showCrumbs?: boolean;
   tone?: "default" | "navy";
   compact?: boolean;
+  /** Custom CSS gradient that replaces the default tone overlay. */
+  overlayGradient?: string;
 }) {
   const navy = tone === "navy";
   const overlay = navy
@@ -36,7 +39,10 @@ export function PageHero({
   return (
     <section className={`relative overflow-hidden ${theme === "sh" ? "bg-sh-900" : "bg-km-900"}`}>
       {image && <Image src={image} alt="" fill className="object-cover" priority />}
-      <div className={`absolute inset-0 ${overlay}`} />
+      <div
+        className={`absolute inset-0 ${overlayGradient ? "" : overlay}`}
+        style={overlayGradient ? { backgroundImage: overlayGradient } : undefined}
+      />
       <div
         className={`container-x relative text-white ${
           compact ? "flex min-h-[340px] flex-col justify-center py-12 md:py-16 lg:min-h-[380px]" : "py-20 md:py-28"
@@ -101,12 +107,17 @@ export function CtaBand({
   title = "Have cargo to move or products to source?",
   text = "Talk to our team for a quick, no-obligation quote.",
   href = "/contact/#enquiry",
+  ctaLabel = "Get a Quote",
+  ctaGhost = false,
 }: {
   compact?: boolean;
   theme?: Theme;
   title?: string;
   text?: string;
   href?: string;
+  ctaLabel?: string;
+  /** Translucent outlined button matching the WhatsApp button, instead of the solid white one. */
+  ctaGhost?: boolean;
 }) {
   const bg = theme === "sh" ? "from-sh-700 to-sh-500" : "from-km-700 to-km-500";
   return (
@@ -124,8 +135,8 @@ export function CtaBand({
             <p className="mt-2 text-white/85">{text}</p>
           </div>
           <div className="flex flex-wrap gap-3">
-            <Link href={href} className="btn bg-white text-ink hover:bg-gray-100">
-              Get a Quote <ArrowRight size={16} />
+            <Link href={href} className={ctaGhost ? "btn-ghost" : "btn bg-white text-ink hover:bg-gray-100"}>
+              {ctaLabel} <ArrowRight size={16} />
             </Link>
             <a
               href={`https://wa.me/${site.whatsapp}`}
