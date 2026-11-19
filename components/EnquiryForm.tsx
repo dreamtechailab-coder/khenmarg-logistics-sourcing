@@ -5,11 +5,61 @@ import { services } from "@/content/services";
 import { products } from "@/content/products";
 import { site } from "@/content/site";
 
-// Set NEXT_PUBLIC_FORM_ENDPOINT (e.g. a Formspree / Web3Forms URL or your own API) in .env.
-// If it is not set, the form falls back to opening the visitor's email app with the enquiry filled in.
-const ENDPOINT = process.env.NEXT_PUBLIC_FORM_ENDPOINT || "";
+// Email notifications: FormSubmit (https://formsubmit.co). The recipient must confirm the first
+// submission before emails are delivered. Storage: Supabase `contact_submissions` (insert-only RLS).
+// All values below are public, browser-safe settings (see .env.local / README).
+const FORMSUBMIT_EMAIL = process.env.NEXT_PUBLIC_FORMSUBMIT_EMAIL || "naresh@khenmarg.com";
+const FORM_ACTION = `https://formsubmit.co/${FORMSUBMIT_EMAIL}`; // plain HTML POST (no-JS fallback)
+const FORM_AJAX = `https://formsubmit.co/ajax/${FORMSUBMIT_EMAIL}`; // JSON POST used by the JS handler
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || "";
+
+const SUBJECT = "New Contact Enquiry - Khenmarg Logistics";
+const FIELDS = ["name", "company", "email", "phone", "country", "enquiry_type", "service", "products", "quantity", "message"] as const;
 
 type Status = "idle" | "sending" | "ok" | "error";
+
+async function sendEmail(data: Record<string, string>): Promise<boolean> {
+  try {
+    const res = await fetch(FORM_AJAX, {
+      method: "POST",
+      headers: { "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        ...data,
+        _subject: SUBJECT,
+        _template: "table",
+        _captcha: "true",
+        _replyto: data.email, // FormSubmit sets Reply-To from this (and from the `email` field)
+      }),
+    });
+    if (!res.ok) return false;
+    const json = await res.json().catch(() => null);
+    // FormSubmit answers { success: "true" | "false", message } — "false" until the address is activated.
+    return String(json?.success) === "true";
+  } catch {
+    return false;
+  }
+}
+
+async function saveSubmission(data: Record<string, string>, emailNotified: boolean): Promise<boolean> {
+  if (!SUPABASE_URL || !SUPABASE_KEY) return false;
+  const row: Record<string, string | boolean | null> = { email_notified: emailNotified, page_url: window.location.href };
+  FIELDS.forEach((k) => (row[k] = data[k]?.trim() || null));
+  try {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/contact_submissions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: SUPABASE_KEY,
+        Prefer: "return=minimal", // anon has no SELECT rights, so don't ask for the row back
+      },
+      body: JSON.stringify(row),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
 
 export default function EnquiryForm() {
   const [type, setType] = useState("Logistics");
@@ -43,35 +93,20 @@ export default function EnquiryForm() {
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
-    if (fd.get("company_website")) return; // honeypot
+    if (fd.get("_honey")) return; // honeypot
     const data: Record<string, string> = {};
     fd.forEach((v, k) => {
-      if (k !== "company_website" && k !== "products") data[k] = String(v);
+      if (!k.startsWith("_") && (FIELDS as readonly string[]).includes(k)) data[k] = String(v).trim();
     });
-    if (picked.length) data.products = picked.join(", ");
+    data.products = picked.join(", ");
 
-    if (!ENDPOINT) {
-      const body = Object.entries(data)
-        .filter(([, v]) => v)
-        .map(([k, v]) => `${k}: ${v}`)
-        .join("\n");
-      window.location.href = `mailto:${site.emails[0].label}?subject=${encodeURIComponent(
-        `Website enquiry – ${data.enquiry_type}`
-      )}&body=${encodeURIComponent(body)}`;
-      setStatus("ok");
-      return;
-    }
     setStatus("sending");
-    try {
-      const res = await fetch(ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(data),
-      });
-      setStatus(res.ok ? "ok" : "error");
-    } catch {
-      setStatus("error");
-    }
+    const emailed = await sendEmail(data);
+    const saved = await saveSubmission(data, emailed);
+    if (!emailed) console.warn("FormSubmit email not sent (address not yet activated, or network error).");
+    if (!saved) console.warn("Supabase contact_submissions insert failed.");
+    // The enquiry is captured if either channel succeeded.
+    setStatus(emailed || saved ? "ok" : "error");
   }
 
   if (status === "ok") {
@@ -99,8 +134,12 @@ export default function EnquiryForm() {
   const isSh = type === "Shashva Products";
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-5 sm:grid-cols-2" noValidate={false}>
-      <input type="text" name="company_website" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden />
+    <form action={FORM_ACTION} method="POST" onSubmit={onSubmit} className="grid gap-5 sm:grid-cols-2" noValidate={false}>
+      <input type="hidden" name="_subject" value={SUBJECT} />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_captcha" value="true" />
+      <input type="hidden" name="products" value={picked.join(", ")} />
+      <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden />
       <div>
         <label className={label} htmlFor="name">Full name *</label>
         <input id="name" name="name" required className={input} placeholder="Your name" />

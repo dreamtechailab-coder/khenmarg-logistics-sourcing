@@ -33,15 +33,28 @@ Also works as-is on Vercel, Netlify or Cloudflare Pages.
 
 ## Enquiry form
 
-Create `.env.local` (before building):
+Each enquiry is sent two ways from the browser:
+
+1. **Email** via [FormSubmit](https://formsubmit.co) (`https://formsubmit.co/ajax/naresh@khenmarg.com`), with subject
+   "New Contact Enquiry - Khenmarg Logistics", table template, and Reply-To set to the visitor's email.
+   Without JavaScript the form falls back to a plain POST to `https://formsubmit.co/naresh@khenmarg.com`.
+2. **Database**: a row in the Supabase table `contact_submissions` (insert-only for the public; `email_notified`
+   records whether the FormSubmit email went out).
+
+Create `.env.local` (before building). These values are public and safe to ship to the browser:
 
 ```
-NEXT_PUBLIC_FORM_ENDPOINT=https://formspree.io/f/xxxxxxx
+NEXT_PUBLIC_FORMSUBMIT_EMAIL=naresh@khenmarg.com
+NEXT_PUBLIC_SUPABASE_URL=https://<project-ref>.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_...
 ```
 
-Any endpoint that accepts a JSON POST works (Formspree, Web3Forms, your own API, a Frappe/ERPNext web form
-or a Lead-creating API method). If no endpoint is set, the form opens the visitor's email app pre-filled to
-naresh@khenmarg.com.
+Never put the Supabase `service_role` key in this file.
+
+**FormSubmit activation (one time):** submit the form once from the live site. FormSubmit emails
+naresh@khenmarg.com an "Activate Form" link; click it. Emails are only delivered after activation. The
+activation email also shows a random alias string you can use in place of the address in
+`NEXT_PUBLIC_FORMSUBMIT_EMAIL` to keep the address out of the page source.
 
 Pre-fill links: `/contact/?service=sea-freight#enquiry`, `/contact/?product=coconut-milk#enquiry`, `/contact/?type=shashva#enquiry`.
 
