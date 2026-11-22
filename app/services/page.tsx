@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 
 import ServicesTabs from "@/components/ServicesTabs";
+import BrightHero from "@/components/BrightHero";
 import Reveal from "@/components/Reveal";
 import { SectionTitle, CtaBand, Check } from "@/components/ui";
 import { services, valueAdded } from "@/content/services";
@@ -15,27 +16,17 @@ export const metadata: Metadata = {
 export default function Services() {
   return (
     <>
-      <section className="relative overflow-hidden bg-slate-900">
-        <Image src="/images/services-hero-bg.jpg" alt="" fill className="object-cover" priority />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.55) 55%, rgba(15, 23, 42, 0.25) 100%)",
-          }}
-        />
-        <div className="container-x relative py-14 text-white md:py-16">
-          <div className="eyebrow mb-2 font-semibold tracking-wider text-orange-500">Our logistics services</div>
-          <h1 className="max-w-3xl text-4xl font-bold leading-tight md:text-5xl">
-            End-to-end freight and supply chain solutions
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-white/85">
-            Sea, air, rail and road — with customs, warehousing and distribution handled by one team.
-          </p>
-        </div>
-      </section>
+      <BrightHero
+        eyebrow="Our logistics services"
+        title="End-to-end freight and supply chain solutions"
+        intro="Sea, air, rail and road — with customs, warehousing and distribution handled by one team."
+        image="/images/logistics-card.jpg"
+        position="50% 60%"
+        mirror
+        className="py-10 sm:py-14 lg:py-16"
+      />
 
-      <ServicesTabs items={services.map(({ slug, title, icon, image, imagePosition, body, points }) => ({ slug, title, icon, image, imagePosition, body, points }))} />
+      <ServicesTabs items={services.map(({ slug, title, icon, image, imagePosition, gallery, body, points }) => ({ slug, title, icon, image, imagePosition, gallery, body, points }))} />
 
       <section className="relative isolate overflow-hidden bg-[#FFF6EE] py-10 md:py-12">
         {/* golden-hour port photo backdrop */}

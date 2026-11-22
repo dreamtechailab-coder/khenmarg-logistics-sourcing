@@ -32,6 +32,10 @@ export default function Header() {
   }, [pathname]);
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
@@ -65,7 +69,7 @@ export default function Header() {
           "h-16"
         }`}
       >
-        <Link href={isShashva ? "/shashva/" : "/"} className="flex items-center gap-2.5" aria-label="Home">
+        <Link href={isShashva ? "/shashva/" : "/"} className="flex min-h-[44px] items-center gap-2.5" aria-label="Home">
           {isShashva ? (
             <Image
               src="/images/shashva-logo-horizontal.png"
@@ -138,7 +142,7 @@ export default function Header() {
           </Link>
         </div>
 
-        <button className="lg:hidden p-2" onClick={() => setOpen(true)} aria-label="Open menu">
+        <button className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center lg:hidden" onClick={() => setOpen(true)} aria-label="Open menu" aria-expanded={open}>
           <Menu />
         </button>
       </div>
@@ -161,24 +165,24 @@ export default function Header() {
             <div className="flex items-center gap-2.5">
               <KhenmargLogo />
             </div>
-            <button onClick={() => setOpen(false)} aria-label="Close menu" className="p-2">
+            <button onClick={() => setOpen(false)} aria-label="Close menu" className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center">
               <X />
             </button>
           </div>
           {nav.map((n) => (
-            <Link key={n.href} href={n.href} className="block border-b border-gray-100 py-3 font-medium">
+            <Link key={n.href} href={n.href} className="flex min-h-[44px] items-center border-b border-gray-100 py-2 font-medium">
               {n.label}
             </Link>
           ))}
           <div className="eyebrow mt-6 mb-1 text-sh-600">Shashva – Our Food Export Brand</div>
           {shashvaNav.map((n) => (
-            <Link key={n.href} href={n.href} className="block border-b border-gray-100 py-3 font-medium text-sh-700">
+            <Link key={n.href} href={n.href} className="flex min-h-[44px] items-center border-b border-gray-100 py-2 font-medium text-sh-700">
               {n.label}
             </Link>
           ))}
           <Link
             href="/contact/"
-            className={`mt-6 flex w-full items-center justify-center rounded-full px-6 py-3 font-semibold text-white ${isShashva ? "shadow-lg shadow-emerald-900/20" : ""}`}
+            className={`mt-6 flex min-h-[44px] w-full items-center justify-center rounded-full px-6 py-3 font-semibold text-white ${isShashva ? "shadow-lg shadow-emerald-900/20" : ""}`}
             style={contactStyle}
           >
             Contact Us

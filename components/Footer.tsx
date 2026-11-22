@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import Reveal from "@/components/Reveal";
 import { MapPin, Phone, Mail } from "lucide-react";
 import { nav, shashvaNav, site } from "@/content/site";
 import { services } from "@/content/services";
@@ -9,21 +10,40 @@ export default function Footer() {
   return (
     <footer className="bg-[#16110f] text-gray-300">
       <div className="container-x grid gap-10 py-16 md:grid-cols-2 lg:grid-cols-12">
-        <div className="lg:col-span-4">
-          <div className="inline-flex items-center gap-4 rounded-xl bg-white p-3">
-            <Link href="/" aria-label="Khenmarg Logistics home">
-              <Image src="/images/khenmarg-logo.png" alt="Khenmarg Logistics - We pave the way for your cargo..." width={719} height={263} className="logo-img h-16 w-auto object-contain" />
+        <Reveal className="lg:col-span-4">
+          <div className="flex w-full max-w-sm flex-col items-start gap-4 rounded-xl border border-white/15 bg-white px-5 py-4 shadow-md">
+            <Link href="/" aria-label="Khenmarg Logistics home" className="block transition duration-300 hover:scale-[1.02] hover:opacity-90">
+              <Image
+                src="/images/khenmarg-logo.png"
+                alt="Khenmarg Logistics - We pave the way for your cargo..."
+                width={719}
+                height={263}
+                className="logo-img h-14 w-auto max-w-full object-contain"
+              />
             </Link>
-            <span className="h-10 w-px bg-gray-200" />
-            <Image src="/logos/shashva-logo.png" alt="Shashva" width={48} height={48} className="h-14 w-14" />
+            <div className="flex w-full items-center gap-3" aria-hidden>
+              <span className="h-px flex-1 bg-gray-300" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-500">Logistics &amp; Food Exports</span>
+              <span className="h-px flex-1 bg-gray-300" />
+            </div>
+            <Link href="/shashva/" aria-label="Shashva food exports home" className="block transition duration-300 hover:scale-[1.02] hover:opacity-90">
+              <Image
+                src="/images/shashva-logo-horizontal.png"
+                alt="Shashva - Step to Healthy Lives"
+                width={3000}
+                height={1000}
+                quality={95}
+                className="h-16 w-auto min-w-[140px] max-w-full object-contain"
+              />
+            </Link>
           </div>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-gray-400">
             International freight forwarding, transportation and customs broking from Chennai — and premium Indian
             food exports through our brand Shashva.
           </p>
-        </div>
+        </Reveal>
 
-        <div className="lg:col-span-2">
+        <Reveal delay={75} className="lg:col-span-2">
           <h3 className="mb-4 text-sm font-semibold text-white">Company</h3>
           <ul className="space-y-2 text-sm">
             {[...nav, { label: "Contact Us", href: "/contact/" }].map((n) => (
@@ -44,9 +64,9 @@ export default function Footer() {
               </li>
             ))}
           </ul>
-        </div>
+        </Reveal>
 
-        <div className="lg:col-span-3 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-1">
+        <Reveal delay={150} className="lg:col-span-3 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-1">
           <div>
             <h3 className="mb-4 text-sm font-semibold text-white">Logistics Services</h3>
             <ul className="space-y-2 text-sm">
@@ -59,9 +79,9 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="lg:col-span-3">
+        <Reveal delay={225} className="lg:col-span-3">
           <h3 className="mb-4 text-sm font-semibold text-white">Get in touch</h3>
           <ul className="space-y-4 text-sm">
             <li className="flex gap-3">
@@ -94,7 +114,7 @@ export default function Footer() {
           </ul>
           <h3 className="mb-2 mt-7 text-sm font-semibold text-sh-500">Shashva Products</h3>
           <p className="text-xs leading-relaxed text-gray-400">{products.map((p) => p.name).join(" · ")}</p>
-        </div>
+        </Reveal>
       </div>
       <div className="border-t border-white/10">
         <div className="container-x flex flex-col gap-2 py-6 text-xs text-gray-500 sm:flex-row sm:justify-between">

@@ -1,20 +1,27 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, IndianRupee, Clock, Ship } from "lucide-react";
+import { ArrowRight, BadgeCheck, PackageCheck, Sprout, Ship } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import ProductMedia from "@/components/ProductMedia";
 import WorldMap from "@/components/WorldMap";
 import { SectionTitle, CtaBand } from "@/components/ui";
-import { products } from "@/content/products";
+import { products, productCategories } from "@/content/products";
 
 export const metadata: Metadata = {
   title: "Shashva – Food Exports",
   description:
-    "Shashva, a food export brand by Khenmarg, sources premium Indian food products — coconut products, pickles, papads, vegetables and herbal powders — for markets worldwide, with a focus on the Gulf.",
+    "Shashva is dedicated to sourcing premium-quality food products from India and supplying them to global markets, with a special focus on authentic taste and uncompromised quality. Farm-direct coconut products, millets, fresh produce, pickles and chutneys.",
 };
 
-const gulf = ["UAE", "Saudi Arabia", "Qatar", "Oman", "Kuwait", "Bahrain"];
+const pillars = ["Farm-direct sourcing", "Hygienic processing", "Bulk & retail packing", "Export documentation"];
+
+const categoryPreviews = productCategories
+  .filter((c) => c !== "All")
+  .map((c) => {
+    const items = products.filter((p) => p.category === c);
+    return { name: c, items, cover: items[0] };
+  });
 
 // Real leaves cut out of the HD logo (positions are % of the logo square) — animated on top of the static base.
 const LOGO_LEAVES = [
@@ -60,8 +67,8 @@ export default function Shashva() {
               Premium Indian food, <span className="text-sh-600">delivered worldwide</span>
             </h1>
             <p className="mt-5 max-w-xl text-lg text-gray-700">
-              Shashva was created to source premium quality food products from India and supply them to markets
-              worldwide, with a special focus on the Gulf region.
+              Shashva is dedicated to sourcing premium-quality food products from India and supplying them to global
+              markets, with a special focus on authentic taste and uncompromised quality.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-3 sm:gap-4">
               <Link
@@ -158,20 +165,20 @@ export default function Shashva() {
         <Reveal>
           <div className="eyebrow mb-3 text-sh-600">What we do</div>
           <h2 className="text-3xl font-bold leading-tight text-sh-900 md:text-4xl">
-            Regular bulk exports, done properly
+            Farm-direct from India, export-ready for the world
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-gray-600">
-            We specialise in regular bulk exports with complete documentation, government certifications, and on-time
-            shipment. Backed by Khenmarg&apos;s own logistics arm, every Shashva shipment benefits from in-house freight
-            forwarding, customs and documentation expertise.
+            We source straight from farms and processors in Tamil Nadu and across India, process hygienically, and
+            pack for export in bulk and retail formats. Backed by Khenmarg&apos;s own logistics arm, every Shashva
+            shipment benefits from in-house freight forwarding, customs and documentation expertise.
           </p>
         </Reveal>
         <div className="grid gap-4 sm:grid-cols-2">
           {[
-            { icon: <Ship />, t: "Bulk exports", d: "Regular, scheduled container shipments" },
-            { icon: <BadgeCheck />, t: "Complete documentation", d: "Government certifications included" },
-            { icon: <Clock />, t: "On-time shipment", d: "Logistics handled in-house by Khenmarg" },
-            { icon: <IndianRupee />, t: "Competitive pricing", d: "Sourced directly from India" },
+            { icon: <Sprout />, t: "Farm-direct sourcing", d: "From Tamil Nadu farms and across India" },
+            { icon: <BadgeCheck />, t: "Hygienic processing", d: "Cleaned, graded and hygienically packed" },
+            { icon: <PackageCheck />, t: "Export-ready packing", d: "Bulk bags, buckets and retail packs" },
+            { icon: <Ship />, t: "Documentation & shipping", d: "Handled in-house by Khenmarg" },
           ].map((f, i) => (
             <Reveal key={f.t} delay={i * 80} className="rounded-2xl bg-sh-50 p-6">
               <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-sh-600 text-white">{f.icon}</div>
@@ -199,14 +206,24 @@ export default function Shashva() {
 
       {/* Products teaser */}
       <section className="container-x py-12 md:py-16">
-        <SectionTitle theme="sh" eyebrow="Our product range" title="Nine product lines, sourced from India" />
-        <div className="grid grid-cols-2 gap-5 md:grid-cols-3">
-          {products.map((p, i) => (
-            <Reveal key={p.slug} delay={(i % 3) * 80}>
-              <Link href={`/shashva/products/${p.slug}/`} className="group block overflow-hidden rounded-2xl border border-sh-100 bg-white transition hover:-translate-y-1 hover:shadow-xl">
-                <ProductMedia product={p} />
-                <div className="p-4 sm:p-5">
-                  <h3 className="font-semibold text-sh-900 group-hover:text-sh-600">{p.name}</h3>
+        <SectionTitle
+          theme="sh"
+          eyebrow="Our product range"
+          title={`${products.length} export products across 4 categories`}
+          text="Coconut products, millets, fresh produce, pickles and chutneys — each with full export specifications."
+        />
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {categoryPreviews.map((c, i) => (
+            <Reveal key={c.name} delay={(i % 4) * 80}>
+              <Link href="/shashva/products/" className="group flex h-full flex-col overflow-hidden rounded-2xl border border-sh-100 bg-white transition hover:-translate-y-1 hover:shadow-xl">
+                <ProductMedia product={c.cover} frame="aspect-[4/3]" sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" />
+                <div className="flex flex-1 flex-col p-5">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-sh-600">{c.items.length} {c.items.length === 1 ? "product" : "products"}</div>
+                  <h3 className="mt-1 text-lg font-bold text-sh-900 group-hover:text-sh-600">{c.name}</h3>
+                  <p className="mt-2 flex-1 text-sm text-gray-600">{c.items.map((p) => p.name.replace(/ \(.*\)$/, "")).join(" · ")}</p>
+                  <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-sh-600">
+                    View products <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
                 </div>
               </Link>
             </Reveal>
@@ -219,12 +236,12 @@ export default function Shashva() {
         <div className="container-x grid items-center gap-12 lg:grid-cols-5">
           <Reveal className="lg:col-span-2">
             <div className="eyebrow mb-3 text-sh-100">Markets</div>
-            <h2 className="text-3xl font-bold md:text-4xl">Focused on the Gulf, shipping worldwide</h2>
+            <h2 className="text-3xl font-bold md:text-4xl">Authentic Indian taste, shipped to global markets</h2>
             <div className="mt-6 flex flex-wrap gap-2">
-              {gulf.map((c) => (
+              {pillars.map((c) => (
                 <span key={c} className="rounded-full bg-white/10 px-4 py-1.5 text-sm">{c}</span>
               ))}
-              <span className="rounded-full border border-white/30 px-4 py-1.5 text-sm">+ worldwide</span>
+              <span className="rounded-full border border-white/30 px-4 py-1.5 text-sm">Worldwide</span>
             </div>
           </Reveal>
           <Reveal delay={150} className="lg:col-span-3">

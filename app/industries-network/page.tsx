@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icon";
+import BrightHero from "@/components/BrightHero";
 import NetworkMap from "@/components/NetworkMap";
 import { SectionTitle, CtaBand } from "@/components/ui";
 import { industries, highlights } from "@/content/services";
@@ -19,23 +19,14 @@ const airlines: string[] = [];
 export default function Industries() {
   return (
     <>
-      <section className="relative overflow-hidden bg-km-900">
-        <Image src="/images/industries-hero.jpg" alt="" fill sizes="100vw" className="object-cover object-[50%_60%]" priority />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(90deg, rgba(15, 20, 28, 0.88) 0%, rgba(25, 20, 18, 0.68) 55%, rgba(200, 40, 30, 0.25) 100%)",
-          }}
-        />
-        <div className="container-x relative py-14 text-white md:py-20">
-          <div className="eyebrow mb-3 font-semibold tracking-wider text-[#F58C22]">Industries &amp; global network</div>
-          <h1 className="max-w-3xl text-4xl font-bold leading-tight md:text-5xl">Global Reach. Industry-Focused Precision.</h1>
-          <p className="mt-5 max-w-2xl text-lg text-white/85">
-            Backed by an agile network of leading international partners across key trade lanes, Khenmarg delivers tailored, end-to-end supply chain solutions built around the unique demands of every industry we serve.
-          </p>
-        </div>
-      </section>
+      <BrightHero
+        eyebrow="Industries & global network"
+        title="Global Reach. Industry-Focused Precision."
+        intro="Backed by an agile network of leading international partners across key trade lanes, Khenmarg delivers tailored, end-to-end supply chain solutions built around the unique demands of every industry we serve."
+        image="/images/services-hero-bg.jpg"
+        position="right"
+        className="py-10 sm:py-14 lg:py-20"
+      />
 
       <section className="container-x py-12 md:py-16">
         <SectionTitle eyebrow="Industries served" title="Sector experience you can rely on" />

@@ -7,6 +7,8 @@ export type Service = {
   points?: string[];
   image?: string;
   imagePosition?: string; // CSS object-position for the card image
+  /** Optional 2x2 photo mosaic that replaces the single card image (e.g. one photo per freight mode). */
+  gallery?: { src: string; label: string; position?: string }[];
 };
 
 export const services: Service[] = [
@@ -74,6 +76,12 @@ export const services: Service[] = [
     icon: "Route",
     image: "/images/multimodal3.jpg",
     imagePosition: "60% 55%",
+    gallery: [
+      { src: "/images/sea2.jpg", label: "Sea", position: "40% 60%" },
+      { src: "/images/air3.jpg", label: "Air", position: "55% 55%" },
+      { src: "/images/multimodal-rail.jpg", label: "Rail", position: "60% 50%" },
+      { src: "/images/multimodal-road.jpg", label: "Road", position: "65% 55%" },
+    ],
     short: "Sea, air, rail and road combined under one bill of lading.",
     body:
       "We combine sea, air, rail and road to find the right balance of cost and transit time, and issue MTO bills of lading for a single point of responsibility.",

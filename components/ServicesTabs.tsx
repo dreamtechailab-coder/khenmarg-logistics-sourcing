@@ -4,7 +4,7 @@ import Image from "next/image";
 import { CheckCircle2 } from "lucide-react";
 import Icon from "@/components/Icon";
 
-type Item = { slug: string; title: string; icon: string; image?: string; imagePosition?: string; body: string; points?: string[] };
+type Item = { slug: string; title: string; icon: string; image?: string; imagePosition?: string; gallery?: { src: string; label: string; position?: string }[]; body: string; points?: string[] };
 
 const GRAD = "linear-gradient(135deg, #C8281E 0%, #E8541A 55%, #F58C22 100%)";
 const ROTATE_MS = 10000;
@@ -100,15 +100,26 @@ export default function ServicesTabs({ items }: { items: Item[] }) {
         </div>
         <div key={s.slug} className="svc-in grid grid-cols-1 lg:grid-cols-12">
         <div className="relative h-64 md:h-72 lg:col-span-5 lg:h-auto lg:min-h-[22rem]">
-          {s.image ? (
+          {s.gallery ? (
+            <div className="absolute inset-0 grid grid-cols-2 grid-rows-2 gap-1 bg-white/90">
+              {s.gallery.map((g) => (
+                <div key={g.label} className="group relative overflow-hidden">
+                  <Image src={g.src} alt={`${g.label} freight`} fill sizes="(min-width: 1024px) 20vw, 50vw" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" style={g.position ? { objectPosition: g.position } : undefined} />
+                  <span className="absolute right-1.5 top-1.5 rounded-full bg-black/55 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
+                    {g.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          ) : s.image ? (
             <Image src={s.image} alt={s.title} fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover" style={s.imagePosition ? { objectPosition: s.imagePosition } : undefined} />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-km-50 to-km-100">
               <Icon name={s.icon} size={96} strokeWidth={1.2} className="text-km-600" />
             </div>
           )}
-          <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 to-transparent" />
-          <span className="absolute bottom-3 left-3 rounded-full bg-slate-900/75 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+          {!s.gallery && <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 to-transparent" />}
+          <span className="absolute bottom-3 left-3 z-10 rounded-full bg-slate-900/75 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
             {String(idx + 1).padStart(2, "0")} • {s.title}
           </span>
         </div>
