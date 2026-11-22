@@ -41,7 +41,8 @@ Each enquiry is sent two ways from the browser:
 2. **Database**: a row in the Supabase table `contact_submissions` (insert-only for the public; `email_notified`
    records whether the FormSubmit email went out).
 
-Create `.env.local` (before building). These values are public and safe to ship to the browser:
+The values below are already the defaults in `components/EnquiryForm.tsx`, so no environment variables are
+needed (locally or on Vercel). Set them only to override, e.g. in `.env.local`. They are public and browser-safe:
 
 ```
 NEXT_PUBLIC_FORMSUBMIT_EMAIL=naresh@khenmarg.com
