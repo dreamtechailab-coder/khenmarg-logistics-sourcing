@@ -4,15 +4,15 @@ import { Send, CheckCircle2 } from "lucide-react";
 import { services } from "@/content/services";
 import { products } from "@/content/products";
 import { site } from "@/content/site";
+import { SUPABASE_URL, SUPABASE_KEY } from "@/lib/supabase";
 
 // Email notifications: FormSubmit (https://formsubmit.co). The recipient must confirm the first
 // submission before emails are delivered. Storage: Supabase `contact_submissions` (insert-only RLS).
-// All values below are public, browser-safe settings (see .env.local / README).
+// All values below are public, browser-safe settings. Env vars (see README) override the defaults,
+// but none are required: the publishable key only allows inserting enquiries (RLS), never reading them.
 const FORMSUBMIT_EMAIL = process.env.NEXT_PUBLIC_FORMSUBMIT_EMAIL || "naresh@khenmarg.com";
 const FORM_ACTION = `https://formsubmit.co/${FORMSUBMIT_EMAIL}`; // plain HTML POST (no-JS fallback)
 const FORM_AJAX = `https://formsubmit.co/ajax/${FORMSUBMIT_EMAIL}`; // JSON POST used by the JS handler
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
-const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || "";
 
 const SUBJECT = "New Contact Enquiry - Khenmarg Logistics";
 const FIELDS = ["name", "company", "email", "phone", "country", "enquiry_type", "service", "products", "quantity", "message"] as const;

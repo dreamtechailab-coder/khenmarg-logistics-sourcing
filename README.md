@@ -41,7 +41,8 @@ Each enquiry is sent two ways from the browser:
 2. **Database**: a row in the Supabase table `contact_submissions` (insert-only for the public; `email_notified`
    records whether the FormSubmit email went out).
 
-Create `.env.local` (before building). These values are public and safe to ship to the browser:
+The values below are already the defaults in `components/EnquiryForm.tsx`, so no environment variables are
+needed (locally or on Vercel). Set them only to override, e.g. in `.env.local`. They are public and browser-safe:
 
 ```
 NEXT_PUBLIC_FORMSUBMIT_EMAIL=naresh@khenmarg.com
@@ -57,6 +58,29 @@ activation email also shows a random alias string you can use in place of the ad
 `NEXT_PUBLIC_FORMSUBMIT_EMAIL` to keep the address out of the page source.
 
 Pre-fill links: `/contact/?service=sea-freight#enquiry`, `/contact/?product=coconut-milk#enquiry`, `/contact/?type=shashva#enquiry`.
+
+## Admin dashboard (`/admin/`)
+
+The round **L** button in the header's top bar opens `/admin/`. Staff sign in with a Supabase Auth email and
+password and can browse, search and filter enquiries, set their status (new / contacted / closed), reply by
+email/WhatsApp/phone, and export to CSV. The page is hidden from search engines.
+
+Access is enforced in the database (Row Level Security), not in the page: only users listed in
+`public.admin_users` can read enquiries or change their status.
+
+**Add an admin:**
+
+1. Supabase dashboard → Authentication → Users → **Add user** → *Create new user*: enter the email and a strong
+   password, tick **Auto Confirm User**.
+2. SQL editor:
+   ```sql
+   insert into public.admin_users (user_id, email)
+   select id, email from auth.users where email = 'person@khenmarg.com';
+   ```
+
+To remove access: `delete from public.admin_users where email = 'person@khenmarg.com';`
+Recommended: Authentication → Sign In / Providers → turn off **Allow new users to sign up** (signed-up
+strangers get no access anyway, but there's no reason to let them create accounts).
 
 ## Editing content
 
