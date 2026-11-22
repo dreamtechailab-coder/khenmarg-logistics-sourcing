@@ -59,6 +59,29 @@ activation email also shows a random alias string you can use in place of the ad
 
 Pre-fill links: `/contact/?service=sea-freight#enquiry`, `/contact/?product=coconut-milk#enquiry`, `/contact/?type=shashva#enquiry`.
 
+## Admin dashboard (`/admin/`)
+
+The round **L** button in the header's top bar opens `/admin/`. Staff sign in with a Supabase Auth email and
+password and can browse, search and filter enquiries, set their status (new / contacted / closed), reply by
+email/WhatsApp/phone, and export to CSV. The page is hidden from search engines.
+
+Access is enforced in the database (Row Level Security), not in the page: only users listed in
+`public.admin_users` can read enquiries or change their status.
+
+**Add an admin:**
+
+1. Supabase dashboard → Authentication → Users → **Add user** → *Create new user*: enter the email and a strong
+   password, tick **Auto Confirm User**.
+2. SQL editor:
+   ```sql
+   insert into public.admin_users (user_id, email)
+   select id, email from auth.users where email = 'person@khenmarg.com';
+   ```
+
+To remove access: `delete from public.admin_users where email = 'person@khenmarg.com';`
+Recommended: Authentication → Sign In / Providers → turn off **Allow new users to sign up** (signed-up
+strangers get no access anyway, but there's no reason to let them create accounts).
+
 ## Editing content
 
 | What | File |

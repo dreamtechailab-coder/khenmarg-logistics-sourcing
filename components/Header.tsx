@@ -56,6 +56,14 @@ export default function Header() {
             <a href={site.emails[0].href} className="text-white transition-opacity hover:opacity-90">
               {site.emails[0].label}
             </a>
+            <Link
+              href="/admin/"
+              aria-label="Login"
+              title="Login"
+              className="-ml-2 flex h-6 w-6 items-center justify-center rounded-full border border-white/80 text-[11px] font-bold leading-none text-white transition hover:bg-white hover:text-gray-900"
+            >
+              L
+            </Link>
           </div>
         </div>
       </div>

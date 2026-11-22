@@ -4,6 +4,7 @@ import { Send, CheckCircle2 } from "lucide-react";
 import { services } from "@/content/services";
 import { products } from "@/content/products";
 import { site } from "@/content/site";
+import { SUPABASE_URL, SUPABASE_KEY } from "@/lib/supabase";
 
 // Email notifications: FormSubmit (https://formsubmit.co). The recipient must confirm the first
 // submission before emails are delivered. Storage: Supabase `contact_submissions` (insert-only RLS).
@@ -12,8 +13,6 @@ import { site } from "@/content/site";
 const FORMSUBMIT_EMAIL = process.env.NEXT_PUBLIC_FORMSUBMIT_EMAIL || "naresh@khenmarg.com";
 const FORM_ACTION = `https://formsubmit.co/${FORMSUBMIT_EMAIL}`; // plain HTML POST (no-JS fallback)
 const FORM_AJAX = `https://formsubmit.co/ajax/${FORMSUBMIT_EMAIL}`; // JSON POST used by the JS handler
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://uutzmfbdhkxmwisnkqhp.supabase.co";
-const SUPABASE_KEY = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || "sb_publishable_IQhx_lEOWszUYmC2Aai11g_frCWCuKj";
 
 const SUBJECT = "New Contact Enquiry - Khenmarg Logistics";
 const FIELDS = ["name", "company", "email", "phone", "country", "enquiry_type", "service", "products", "quantity", "message"] as const;
