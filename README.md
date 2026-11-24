@@ -68,6 +68,16 @@ email/WhatsApp/phone, and export to CSV. The page is hidden from search engines.
 Access is enforced in the database (Row Level Security), not in the page: only users listed in
 `public.admin_users` can read enquiries or change their status.
 
+**Default login:** email `naresh@khenmarg.com`, password `admin`. Change the password after the first sign-in.
+
+**Change password:** sign in → **Change password** button in the dashboard (asks for the current password).
+
+**Forgot password:** in the Supabase SQL editor run
+```sql
+update auth.users set encrypted_password = extensions.crypt('NEW-PASSWORD', extensions.gen_salt('bf'))
+where email = 'naresh@khenmarg.com';
+```
+
 **Add an admin:**
 
 1. Supabase dashboard → Authentication → Users → **Add user** → *Create new user*: enter the email and a strong

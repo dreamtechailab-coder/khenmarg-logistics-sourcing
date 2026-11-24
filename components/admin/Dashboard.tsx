@@ -1,7 +1,8 @@
 "use client";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Download, Loader2, LogOut, Mail, MessageCircle, Phone, RefreshCw, Search, X } from "lucide-react";
-import { getSupabase, type Submission } from "@/lib/supabase";
+import { Download, KeyRound, Loader2, LogOut, Mail, MessageCircle, Phone, RefreshCw, Search, X } from "lucide-react";
+import { displayLogin, getSupabase, type Submission } from "@/lib/supabase";
+import ChangePassword from "./ChangePassword";
 
 const STATUSES: Submission["status"][] = ["new", "contacted", "closed"];
 const STATUS_STYLE: Record<Submission["status"], string> = {
@@ -14,6 +15,7 @@ const fmtDate = (iso: string) =>
   new Date(iso).toLocaleString("en-IN", { day: "2-digit", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" });
 
 export default function Dashboard({ email, onSignOut }: { email: string; onSignOut: () => void }) {
+  const [showPw, setShowPw] = useState(false);
   const [rows, setRows] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -79,12 +81,13 @@ export default function Dashboard({ email, onSignOut }: { email: string; onSignO
 
   return (
     <div className="min-h-[80vh] bg-gray-50">
+      {showPw && <ChangePassword email={email} onClose={() => setShowPw(false)} />}
       <div className="mx-auto w-full max-w-[1280px] px-4 py-8 lg:px-6">
         {/* Title bar */}
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Website enquiries</h1>
-            <p className="text-sm text-gray-500">Signed in as {email}</p>
+            <p className="text-sm text-gray-500">Signed in as {displayLogin(email)}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <button onClick={load} disabled={loading} className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:border-gray-300 disabled:opacity-60">
@@ -92,6 +95,9 @@ export default function Dashboard({ email, onSignOut }: { email: string; onSignO
             </button>
             <button onClick={() => downloadCsv(filtered)} disabled={!filtered.length} className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:border-gray-300 disabled:opacity-60">
               <Download size={15} /> Export CSV
+            </button>
+            <button onClick={() => setShowPw(true)} className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:border-gray-300">
+              <KeyRound size={15} /> Change password
             </button>
             <button onClick={onSignOut} className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:border-gray-300">
               <LogOut size={15} /> Sign out

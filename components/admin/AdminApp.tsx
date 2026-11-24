@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
 import { Loader2, Lock, LogOut, ShieldAlert } from "lucide-react";
-import { getSupabase } from "@/lib/supabase";
+import { displayLogin, getSupabase, loginToEmail } from "@/lib/supabase";
 import Dashboard from "./Dashboard";
 
 type Phase = "loading" | "signed-out" | "checking" | "denied" | "ready";
@@ -59,7 +59,7 @@ export default function AdminApp() {
         <ShieldAlert className="mx-auto mb-3 text-km-600" size={40} />
         <h1 className="text-xl font-bold">No admin access</h1>
         <p className="mt-2 text-sm text-gray-600">
-          {session?.user.email} is signed in but is not an administrator for this site.
+          {displayLogin(session?.user.email ?? "")} is signed in but is not an administrator for this site.
         </p>
         <button onClick={signOut} className="btn-outline-km mt-6">
           <LogOut size={16} /> Sign out
@@ -89,9 +89,9 @@ function LoginForm() {
     e.preventDefault();
     setBusy(true);
     setError("");
-    const { error } = await getSupabase().auth.signInWithPassword({ email: email.trim(), password });
+    const { error } = await getSupabase().auth.signInWithPassword({ email: loginToEmail(email.trim()), password });
     setBusy(false);
-    if (error) setError(error.message === "Invalid login credentials" ? "Incorrect email or password." : error.message);
+    if (error) setError(error.message === "Invalid login credentials" ? "Incorrect username or password." : error.message);
   }
 
   const input =
@@ -106,8 +106,8 @@ function LoginForm() {
       <p className="mt-1 text-sm text-gray-500">Sign in to view website enquiries.</p>
       <form onSubmit={onSubmit} className="mt-6 space-y-4 text-left">
         <div>
-          <label htmlFor="admin-email" className="mb-1.5 block text-sm font-medium text-gray-700">Email</label>
-          <input id="admin-email" type="email" required autoComplete="username" className={input} value={email} onChange={(e) => setEmail(e.target.value)} />
+          <label htmlFor="admin-email" className="mb-1.5 block text-sm font-medium text-gray-700">Username or email</label>
+          <input id="admin-email" type="text" autoCapitalize="none" spellCheck={false} required autoComplete="username" className={input} value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div>
           <label htmlFor="admin-password" className="mb-1.5 block text-sm font-medium text-gray-700">Password</label>

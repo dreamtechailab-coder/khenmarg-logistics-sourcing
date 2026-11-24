@@ -7,6 +7,11 @@ export const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || "https://uut
 export const SUPABASE_KEY =
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY || "sb_publishable_IQhx_lEOWszUYmC2Aai11g_frCWCuKj";
 
+/** Admins without a real mailbox sign in with a bare username, stored in Supabase Auth as <username>@khenmarg.local. */
+const USERNAME_DOMAIN = "khenmarg.local";
+export const loginToEmail = (login: string) => (login.includes("@") ? login : `${login.toLowerCase()}@${USERNAME_DOMAIN}`);
+export const displayLogin = (email: string) => email.replace(`@${USERNAME_DOMAIN}`, "");
+
 let client: SupabaseClient | null = null;
 
 /** Lazily created browser client (with auth session persistence) for the admin dashboard. */
