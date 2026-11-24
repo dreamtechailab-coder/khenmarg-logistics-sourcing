@@ -5,10 +5,8 @@ import HeroSection from "@/components/HeroSection";
 import StatsBar from "@/components/StatsBar";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icon";
-import ProductMedia from "@/components/ProductMedia";
 import { SectionTitle, CtaBand } from "@/components/ui";
 import { services, highlights, industries } from "@/content/services";
-import { products } from "@/content/products";
 
 const serviceTags: Record<string, string> = {
   "sea-freight": "FCL & LCL • Global Ports",
@@ -125,8 +123,8 @@ export default function Home() {
                 <div className="eyebrow text-sh-600">Food export brand</div>
                 <h3 className="mt-2 text-3xl font-bold text-sh-900">Shashva Food Exports</h3>
                 <p className="mt-3 max-w-md text-gray-700">
-                  Premium quality food products sourced from India and supplied to markets worldwide, with a special
-                  focus on the Gulf region.
+                  Premium-quality food products sourced from India and supplied to global markets, with a special
+                  focus on authentic taste and uncompromised quality.
                 </p>
                 <Link href="/shashva/products/" className="btn-sh mt-8 !bg-[#2E6B34] hover:!bg-[#1E4620]">
                   View Products <ArrowRight size={16} />
@@ -207,33 +205,6 @@ export default function Home() {
                 <Icon name={h.icon} className="shrink-0 text-orange-500" size={24} />
                 <span className="text-sm font-semibold">{h.label}</span>
               </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Shashva products teaser */}
-      <section className="bg-sh-50 py-12 md:py-16">
-        <div className="container-x">
-          <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
-            <SectionTitle compact theme="sh" eyebrow="Shashva · Step to Healthy Lives" title="Premium Indian food products for the world" text="Regular bulk exports with complete documentation, government certifications and on-time shipment." />
-            <Link href="/shashva/products/" className="btn-outline-sh mb-6 self-start md:mb-8 md:self-auto">
-              All products <ArrowRight size={16} />
-            </Link>
-          </div>
-          <div className="-mx-5 flex snap-x gap-5 overflow-x-auto px-5 pb-4 sm:mx-0 sm:px-0">
-            {products.map((p) => (
-              <Link
-                key={p.slug}
-                href={`/shashva/products/${p.slug}/`}
-                className="group w-60 shrink-0 snap-start overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-              >
-                <ProductMedia product={p} sizes="240px" frame="h-40" />
-                <div className="p-4">
-                  <div className="text-xs font-medium text-sh-600">{p.category}</div>
-                  <h3 className="mt-1 font-semibold text-sh-900">{p.name}</h3>
-                </div>
-              </Link>
             ))}
           </div>
         </div>

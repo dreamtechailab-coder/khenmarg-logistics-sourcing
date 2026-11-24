@@ -5,7 +5,8 @@ import { Eye, Target, Gem } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import KhenmargLogo from "@/components/KhenmargLogo";
 import Icon from "@/components/Icon";
-import { PageHero, SectionTitle } from "@/components/ui";
+import BrightHero from "@/components/BrightHero";
+import { SectionTitle } from "@/components/ui";
 import { values } from "@/content/services";
 
 export const metadata: Metadata = {
@@ -17,17 +18,13 @@ export const metadata: Metadata = {
 export default function About() {
   return (
     <>
-      <PageHero
+      <BrightHero
         eyebrow="About Khenmarg"
         title="Empowering global trade with precision and reliability"
         intro="Founded by professionals with 15+ years in shipping and export, Khenmarg delivers end-to-end freight forwarding by sea, air, rail and road, backed by customs expertise and a partner network built to move your cargo on time."
-        image="/images/about-hero.jpg"
-        tone="navy"
-        compact
-        showCrumbs={false}
-        overlayGradient="linear-gradient(90deg, rgba(15, 20, 28, 0.86) 0%, rgba(24, 19, 17, 0.65) 52%, rgba(232, 84, 26, 0.18) 100%)"
+        image="/images/about-hero-ship.jpg"
+        position="50% 73%"
       />
-
       <section className="container-x grid gap-8 py-12 md:py-16 lg:grid-cols-12 lg:gap-10">
         <Reveal className="lg:col-span-7">
           <div className="eyebrow mb-3 text-km-600">Our story</div>

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { LAND_PATH, MAP_H, MAP_W, PINS } from "@/components/worldDots";
+import { LAND_PATH, MAP_H, PINS } from "@/components/worldDots";
 
 /**
  * Interactive "Chennai to the world" trade-route map.
@@ -8,7 +8,7 @@ import { LAND_PATH, MAP_H, MAP_W, PINS } from "@/components/worldDots";
  * travelling cargo pulses and a pulsing Chennai beacon. Pure SVG/CSS, no libraries.
  */
 
-type CorridorId = "gulf" | "europe" | "asia" | "na";
+type CorridorId = "gulf" | "europe" | "asia" | "na" | "sa" | "au" | "nz";
 type Filter = "all" | CorridorId;
 
 type Node = { key: string; label?: string; dx?: number; dy?: number; anchor?: "start" | "middle" | "end"; major?: boolean };
@@ -66,14 +66,71 @@ const CORRIDORS: Corridor[] = [
       { key: "houston" },
     ],
   },
+  {
+    id: "sa",
+    pill: "South America",
+    title: "South America",
+    modes: ["Sea", "Air"],
+    ports: "Santos · São Paulo · Buenos Aires",
+    nodes: [
+      { key: "santos", label: "South America", dy: -3.6, anchor: "middle", major: true },
+      { key: "buenosaires" },
+    ],
+  },
+  {
+    id: "au",
+    pill: "Australia",
+    title: "Australia",
+    modes: ["Sea", "Air"],
+    ports: "Sydney · Melbourne",
+    nodes: [
+      { key: "sydney", label: "Australia", dx: -1, dy: -3.6, anchor: "middle", major: true },
+      { key: "melbourne" },
+    ],
+  },
+  {
+    id: "nz",
+    pill: "New Zealand",
+    title: "New Zealand",
+    modes: ["Sea", "Air"],
+    ports: "Auckland",
+    nodes: [{ key: "auckland", label: "New Zealand", dx: 3, dy: 5.6, anchor: "end", major: true }],
+  },
 ];
+
+// Extra pins, projected with the same lon/lat → x/y fit as the base map pins (x = 78.8 + 0.47·lon, y = 26.8 + 0.536·(40.7 − lat)).
+const P: Record<string, [number, number]> = {
+  ...PINS,
+  santos: [57, 61.5],
+  buenosaires: [51.4, 67.2],
+  sydney: [149.9, 66.8],
+  melbourne: [146.9, 68.9],
+  auckland: [160.9, 66.8],
+};
+
+// The base dot map ends at x≈157, so New Zealand's two islands are added here in the same dot style.
+const VIEW_W = 166;
+// Empty ocean band under the map where the glass card sits on sm+ so it never covers South America / Australia / NZ pins.
+const VIEW_H = MAP_H + 32;
+const NZ_ROWS: [number, number, number][] = [
+  // [lat, lonFrom, lonTo]
+  [-35.2, 173.3, 174.6], [-36.8, 174.0, 175.8], [-38.4, 174.6, 177.6], [-40.0, 173.8, 176.4], [-41.5, 174.8, 175.9],
+  [-41.2, 172.6, 173.8], [-42.8, 171.5, 173.4], [-44.4, 169.6, 172.2], [-46.0, 167.6, 170.4],
+];
+const NZ_PATH = NZ_ROWS.flatMap(([lat, a, b]) => {
+  const out: string[] = [];
+  for (let lon = a; lon <= b + 0.01; lon += 1.8) {
+    out.push(`M${(78.8 + 0.47 * lon).toFixed(1)} ${(26.8 + 0.536 * (40.7 - lat)).toFixed(1)}h0`);
+  }
+  return out;
+}).join("");
 
 const PILLS: { id: Filter; label: string }[] = [
   { id: "all", label: "All Corridors" },
   ...CORRIDORS.map((c) => ({ id: c.id as Filter, label: c.pill })),
 ];
 
-const [HX, HY] = PINS.chennai;
+const [HX, HY] = P.chennai;
 
 /** Quadratic arc from Chennai to (x, y), bowed perpendicular to the straight line (always upwards). */
 function arc(x: number, y: number) {
@@ -95,7 +152,7 @@ function arc(x: number, y: number) {
 let order = 0;
 const ARCS = CORRIDORS.flatMap((c) =>
   c.nodes.map((n) => {
-    const [x, y] = PINS[n.key];
+    const [x, y] = P[n.key];
     return { corridor: c.id, node: n, x, y, d: arc(x, y), i: order++ };
   })
 );
@@ -134,7 +191,7 @@ export default function NetworkMap() {
           Gulf region.
         </p>
 
-        <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Filter trade corridors">
+        <div className="mt-5 flex flex-wrap gap-2.5" role="group" aria-label="Filter trade corridors">
           {PILLS.map((p) => {
             const on = selected === p.id;
             return (
@@ -170,10 +227,10 @@ export default function NetworkMap() {
         }}
       >
         <svg
-          viewBox={`0 0 ${MAP_W} ${MAP_H}`}
-          className="block h-auto w-full"
+          viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
+          className="-mb-[19.3%] block h-auto w-full sm:mb-0"
           role="img"
-          aria-label="Khenmarg global trade-route map showing corridors from Chennai to the Gulf, Europe, Asia and North America"
+          aria-label="Khenmarg global trade-route map showing corridors from Chennai to the Gulf, Europe, Asia, North and South America, Australia and New Zealand"
         >
           <defs>
             <radialGradient id="nm-vignette" cx="50%" cy="50%" r="62%">
@@ -181,7 +238,7 @@ export default function NetworkMap() {
               <stop offset="100%" stopColor="#000" />
             </radialGradient>
             <mask id="nm-mask">
-              <rect width={MAP_W} height={MAP_H} fill="url(#nm-vignette)" />
+              <rect width={VIEW_W} height={MAP_H} fill="url(#nm-vignette)" />
             </mask>
             <radialGradient id="nm-beacon">
               <stop offset="0%" stopColor="#F58C22" />
@@ -200,6 +257,7 @@ export default function NetworkMap() {
           {/* dotted continents with edge vignette */}
           <g mask="url(#nm-mask)">
             <path d={LAND_PATH} stroke="#e9d9c8" strokeOpacity="0.5" strokeWidth="0.78" strokeLinecap="round" fill="none" />
+            <path d={NZ_PATH} stroke="#e9d9c8" strokeOpacity="0.5" strokeWidth="0.78" strokeLinecap="round" fill="none" />
           </g>
 
           {/* arcs: dim base + animated glow trail + travelling pulse */}
@@ -255,7 +313,7 @@ export default function NetworkMap() {
                 opacity={on ? 1 : 0.25}
               >
                 {c.nodes.map((n) => {
-                  const [x, y] = PINS[n.key];
+                  const [x, y] = P[n.key];
                   const gulf = c.id === "gulf";
                   return (
                     <g key={n.key}>
@@ -330,7 +388,7 @@ export default function NetworkMap() {
         </svg>
 
         {/* glass micro-card */}
-        <div className="m-3 rounded-xl border border-white/10 bg-white/[0.06] p-3.5 backdrop-blur-md sm:absolute sm:bottom-3 sm:left-3 sm:m-0 sm:max-w-[17rem]">
+        <div className="m-3 rounded-xl border border-white/10 bg-white/[0.06] p-3.5 backdrop-blur-md sm:absolute sm:bottom-3 sm:left-3 sm:m-0 sm:max-w-[24rem]">
           {info ? (
             <>
               <div className="text-sm font-semibold text-white">{info.title}</div>
@@ -354,7 +412,7 @@ export default function NetworkMap() {
                 ))}
               </div>
               <div className="mt-2 text-xs leading-relaxed text-white/70">
-                Gulf &amp; Middle East • Europe • East &amp; SE Asia • North America
+                Gulf &amp; Middle East • Europe • East &amp; SE Asia • North America • South America • Australia • New Zealand
               </div>
             </>
           )}

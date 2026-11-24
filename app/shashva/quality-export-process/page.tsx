@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icon";
-import { PageHero, SectionTitle, CtaBand, Check } from "@/components/ui";
+import RibbonHero from "@/components/RibbonHero";
+import { SectionTitle, CtaBand, Check } from "@/components/ui";
 
 export const metadata: Metadata = {
   title: "Quality & Export Process — Shashva",
@@ -35,16 +36,25 @@ const certifications: { name: string; note?: string }[] = [];
 export default function Quality() {
   return (
     <>
-      <PageHero
+      <RibbonHero
         theme="sh"
+        fullWidth
+        fade="linear-gradient(90deg, rgba(255,255,255,0.82) 0%, rgba(255,255,255,0.74) 34%, rgba(255,255,255,0.32) 52%, rgba(255,255,255,0) 66%)"
         eyebrow="Shashva · Quality & export process"
         title="Quality you can trust, from source to shipment"
         intro="Complete documentation, government certifications and on-time shipment — every order."
-        image="/images/warehouse.jpg"
-        crumbs={[{ label: "Shashva", href: "/shashva/" }, { label: "Quality & Export Process" }]}
+        slices={[
+          { src: "/images/shashva-farm/palms.jpg", alt: "Sunlit coconut palms in a South Indian village", pos: "50% 45%" },
+          { src: "/images/shashva-farm/paddy.jpg", alt: "Green paddy fields with a thatched hut and palms", pos: "50% 60%" },
+          { src: "/images/shashva-farm/planting.jpg", alt: "Farmers planting rice in a flooded paddy field", pos: "40% 40%" },
+          { src: "/images/shashva-farm-grove.jpg", alt: "Sunlit Indian coconut grove", pos: "50% 55%" },
+          { src: "/images/products/semi-husked-coconuts.jpg", alt: "Fresh semi-husked coconuts" },
+          { src: "/images/products/millets.jpg", alt: "Organic unpolished millets" },
+          { src: "/images/products/gooseberry.jpg", alt: "Fresh gooseberries (amla)" },
+          { src: "/images/products/pickles-jar.jpg", alt: "Traditional South Indian pickle" },
+        ]}
       />
-
-      <section className="container-x py-24">
+      <section className="container-x py-14 sm:py-20 lg:py-24">
         <SectionTitle theme="sh" center eyebrow="Our export process" title="Eight steps from farm to your port" />
         <ol className="relative grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {steps.map((s, i) => (
@@ -62,7 +72,7 @@ export default function Quality() {
         </ol>
       </section>
 
-      <section className="bg-sh-50 py-24">
+      <section className="bg-sh-50 py-14 sm:py-20 lg:py-24">
         <div className="container-x grid gap-12 lg:grid-cols-2">
           <Reveal>
             <div className="eyebrow mb-3 text-sh-600">Documentation</div>
@@ -90,7 +100,7 @@ export default function Quality() {
       </section>
 
       {certifications.length > 0 && (
-        <section className="container-x py-24">
+        <section className="container-x py-14 sm:py-20 lg:py-24">
           <SectionTitle theme="sh" center eyebrow="Certifications" title="Registered and certified for export" />
           <div className="grid grid-cols-2 gap-5 md:grid-cols-4">
             {certifications.map((c) => (
